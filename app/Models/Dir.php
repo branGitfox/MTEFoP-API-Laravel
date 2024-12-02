@@ -22,4 +22,8 @@ class Dir extends Model
     public function dir() {
         return $this->hasMany(Serv::class);
     }
+
+    public function direction() {
+        return $this->hasMany(Courrier::class);
+    }
 }

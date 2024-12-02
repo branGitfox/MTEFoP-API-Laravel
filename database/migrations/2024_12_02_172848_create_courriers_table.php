@@ -13,6 +13,15 @@ return new class extends Migration
     {
         Schema::create('courriers', function (Blueprint $table) {
             $table->id();
+            $table->string('provenance');
+            $table->string('chrono');
+            $table->string('ref');
+            $table->foreignId('id_user')->constrained();
+            $table->foreignId('id_dir')->constrained()->cascadeOnDelete();
+            $table->string('motif');
+            $table->text('caracteristique');
+            $table->string('propr');
+            $table->string('status');
             $table->timestamps();
         });
     }

@@ -17,6 +17,15 @@ class Courrier extends Model
         'motif',
         'caracteristique',
         'propr',
-        'id_user'
+        'id_user',
+        'status'
     ];
+
+    public function courriers () {
+        return $this->belongsTo(User::class);
+    }
+
+    public function courrierss () {
+        return $this->belongsTo(Dir::class);
+    }
 }
