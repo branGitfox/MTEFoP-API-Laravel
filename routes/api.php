@@ -31,4 +31,5 @@ Route::get('/services/{id_dir}', [ServiceController::class, 'getListOfServByDire
 
 //route pour les actions courriers
 Route::post('/doc', [CourrierController::class, 'addDoc']);
+Route::get('/docs', [CourrierController::class, 'fetchDocs']);
 

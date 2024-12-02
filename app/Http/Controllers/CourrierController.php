@@ -4,9 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\Courrier;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CourrierController extends Controller
 {
+    /**
+     * Pour l'enregistrement d'un courrier
+     */
     public function addDoc (Request $request) {
         $fields = $request->validate([
             'provenance' => 'required',
@@ -26,4 +30,16 @@ class CourrierController extends Controller
             'message' => 'Courrier creer avec succes'
         ];
     }
+
+    /**
+     * Pour recuperer la liste de tous les courriers
+     */
+
+     public function fetchDocs (Request $request) {
+        $docs = DB::table('courriers')
+                ->join('dirs', 'dirs.id', '=', 'courriers.dir_id')->get();
+                return $docs;
+
+     }          
+                
 }
