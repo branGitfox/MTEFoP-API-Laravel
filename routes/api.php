@@ -27,3 +27,7 @@ Route::post('/updateUser/info', [AuthController::class, 'updateUserInfo'])->midd
 
 //route pour la recuperation de la liste de services
 Route::get('/services/{id_dir}', [ServiceController::class, 'getListOfServByDirection']);
+
+//route pour les actions courriers
+
+
