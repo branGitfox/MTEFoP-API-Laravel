@@ -2,21 +2,28 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Courrier;
 use Illuminate\Http\Request;
 
 class CourrierController extends Controller
 {
     public function addDoc (Request $request) {
-        $request->validate([
-            'prov' => 'required',
+        $fields = $request->validate([
+            'provenance' => 'required',
             'chrono' => 'required|unique:courriers',
             'ref' => 'required',
-            'id_dir' => 'required|exists:dirs,id',
+            'dir_id' => 'required|exists:dirs,id',
             'motif' => 'required',
             'caracteristique' => 'required',
             'propr' => 'required',
-            'id_user' => 'required|exists:users',
+            'user_id' => ['required', 'exists:users,id'],
             'status' => 'required'
         ]);
+
+        Courrier::create($fields);
+
+        return [
+            'message' => 'Courrier creer avec succes'
+        ];
     }
 }
