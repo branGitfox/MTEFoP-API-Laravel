@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CourrierController;
 use App\Http\Controllers\DgController;
 use App\Http\Controllers\DirController;
 use App\Http\Controllers\ServController;
@@ -29,5 +30,5 @@ Route::post('/updateUser/info', [AuthController::class, 'updateUserInfo'])->midd
 Route::get('/services/{id_dir}', [ServiceController::class, 'getListOfServByDirection']);
 
 //route pour les actions courriers
-
+Route::post('/doc', [CourrierController::class, 'addDoc']);
 
