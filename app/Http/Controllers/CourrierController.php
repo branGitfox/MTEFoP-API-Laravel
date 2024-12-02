@@ -11,7 +11,8 @@ class CourrierController extends Controller
     /**
      * Pour l'enregistrement d'un courrier
      */
-    public function addDoc (Request $request) {
+    public function addDoc(Request $request)
+    {
         $fields = $request->validate([
             'provenance' => 'required',
             'chrono' => 'required|unique:courriers',
@@ -35,11 +36,10 @@ class CourrierController extends Controller
      * Pour recuperer la liste de tous les courriers
      */
 
-     public function fetchDocs (Request $request) {
+    public function fetchDocs(Request $request)
+    {
         $docs = DB::table('courriers')
-                ->join('dirs', 'dirs.id', '=', 'courriers.dir_id')->get();
-                return $docs;
-
-     }          
-                
+            ->join('dirs', 'dirs.id', '=', 'courriers.dir_id')->get();
+        return $docs;
+    }
 }

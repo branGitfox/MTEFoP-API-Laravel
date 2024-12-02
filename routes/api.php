@@ -30,6 +30,6 @@ Route::post('/updateUser/info', [AuthController::class, 'updateUserInfo'])->midd
 Route::get('/services/{id_dir}', [ServiceController::class, 'getListOfServByDirection']);
 
 //route pour les actions courriers
-Route::post('/doc', [CourrierController::class, 'addDoc']);
-Route::get('/docs', [CourrierController::class, 'fetchDocs']);
+Route::post('/doc', [CourrierController::class, 'addDoc'])->middleware('auth:sanctum');
+Route::get('/docs', [CourrierController::class, 'fetchDocs'])->middleware('auth:sanctum');
 
