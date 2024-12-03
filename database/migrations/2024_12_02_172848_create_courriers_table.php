@@ -21,7 +21,9 @@ return new class extends Migration
             $table->string('motif');
             $table->text('caracteristique');
             $table->string('propr');
-            $table->string('status');
+            $table->enum('status', ['reçu', 'non reçu']);
+
+
             $table->timestamps();
         });
     }
