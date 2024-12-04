@@ -23,7 +23,22 @@ class CourrierController extends Controller
             'propr' => 'required',
             'user_id' => ['required', 'exists:users,id'],
             'status' => 'required'
-        ]);
+        ],
+        [
+            'provenance.required' => 'Le champ provenance est requis',
+            'chrono.required' => 'Le champ chrono est requis',
+            'chrono.unique' => 'Le chrono existe deja',
+            'ref.required' => 'Le champ reference est requis',
+            'dir_id.required' => 'Le champ Direction est requis',
+            'dir_id.exists' => 'Cette Direction n\'existe pas',
+            'motif.required' => 'Le champ motif est requis',
+            'caracteristique.required' => 'Le champ caracteristique est requis' ,
+            'propr.required' => 'Le champ proprietaire est requis',
+            'user_id.required' => 'Vous devez vous connecter avant de pouvoir poursuivre cette action' ,
+            'user_id.exists' => 'Vous devez vous connecter avant de pouvoir poursuivre cette action' ,
+            'status.required' => 'Le champ status est requis' 
+        ]
+    );
 
         Courrier::create($fields);
 
