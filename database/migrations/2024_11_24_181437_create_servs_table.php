@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('servs', function (Blueprint $table) {
             $table->id();
             $table->string('nom_serv');
+            $table->string('porte_serv');
             $table->foreignId('dir_id')->constrained()->cascadeOnDelete();
             $table->timestamps();
         });

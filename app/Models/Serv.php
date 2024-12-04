@@ -12,7 +12,8 @@ class Serv extends Model
 
     protected $fillable = [
         'nom_serv',
-        'dir_id'
+        'dir_id',
+        'porte_serv'
     ];
 
     public function serv() {
