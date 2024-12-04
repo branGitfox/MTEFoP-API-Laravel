@@ -23,14 +23,16 @@ class DirController extends Controller
     {
        $fields = $request->validate([
             'nom_dir'=> 'required|unique:dirs',
-            'dg_id' => ['required', 'exists:dgs,id']
+            'dg_id' => ['required', 'exists:dgs,id'],
+            'porte_dir' => 'required'
        ],
 
        [
         'nom_dir' => 'Le champ Nom DIR est requis',
         'dg_id.required' => 'Le champ DG est requis',
         'dg_id.exists' => 'Le DG n\'existe pas',
-        'nom_dir.unique' => 'La DIR existe deja'
+        'nom_dir.unique' => 'La DIR existe deja',
+        'porte_dir.required' => 'Le champ porte est requis'
        ]
         
     );

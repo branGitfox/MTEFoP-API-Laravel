@@ -23,12 +23,14 @@ class ServController extends Controller
     {
         $fields =$request->validate([
             'nom_serv' => 'required|unique:servs',
-            'dir_id' => ['required', 'exists:dirs,id']
+            'dir_id' => ['required', 'exists:dirs,id'],
+            'porte_serv' => 'required'
         ], [
             'nom_serv.required' => 'Le champ Nom service est requis',
             'nom_serv.unique' => 'Le service existe deja',
             'dir_id.required' => 'Le champ DIR  est requis',
-            'dir_id.exists' => 'La DIR n\'existe pas'
+            'dir_id.exists' => 'La DIR n\'existe pas',
+            'porte_serv' => 'Le champ porte es requis'
         ]);
 
         Serv::create($fields);

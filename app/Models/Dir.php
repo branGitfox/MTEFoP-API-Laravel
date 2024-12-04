@@ -12,7 +12,8 @@ class Dir extends Model
 
     protected $fillable = [
         'nom_dir',
-        'dg_id'
+        'dg_id',
+        'porte_dir'
     ];
 
     public function dirs() {
