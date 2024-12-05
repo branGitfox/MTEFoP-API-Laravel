@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('mouvement', function (Blueprint $table) {
+        Schema::create('mouvements', function (Blueprint $table) {
             $table->id();
             $table->string('ref_initial');
             $table->string('ref_propre');
@@ -20,6 +20,7 @@ return new class extends Migration
             $table->enum('type', ['transfert', 'recuperation']);
             $table->enum('status', ['reçu', 'non reçu']);
             $table->string('description');
+            $table->enum('transfere', ['non', 'oui']);
             $table->string('propr')->nullable();
             $table->timestamps();
         });

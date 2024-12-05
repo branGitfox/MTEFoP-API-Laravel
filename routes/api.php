@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CourrierController;
 use App\Http\Controllers\DgController;
 use App\Http\Controllers\DirController;
+use App\Http\Controllers\MouvementController;
 use App\Http\Controllers\ServController;
 use App\Http\Controllers\ServiceController;
 use Illuminate\Http\Request;
@@ -19,7 +20,7 @@ Route::apiResource('/dir', DirController::class);
 Route::apiResource('/serv', ServController::class);
 
 //route pour les action d'un utilisateur
-Route::post('/register', [AuthController::class, 'register'])->middleware('auth:sanctum');
+Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
 Route::post('/updateStatus/{user_id}', [AuthController::class, 'updateStatus'])->middleware(('auth:sanctum'));
@@ -32,4 +33,7 @@ Route::get('/services/{id_dir}', [ServiceController::class, 'getListOfServByDire
 //route pour les actions courriers
 Route::post('/doc', [CourrierController::class, 'addDoc'])->middleware('auth:sanctum');
 Route::get('/docs', [CourrierController::class, 'fetchDocs'])->middleware('auth:sanctum');
+
+//route pour le transfert courriers
+Route::post('/transDoc', [MouvementController::class, 'makeMovement']);
 

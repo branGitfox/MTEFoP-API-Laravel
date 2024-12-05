@@ -22,6 +22,7 @@ return new class extends Migration
             $table->text('caracteristique');
             $table->string('propr');
             $table->enum('status', ['reçu', 'non reçu']);
+            $table->enum('transfere', ['oui', 'non']);
 
 
             $table->timestamps();
