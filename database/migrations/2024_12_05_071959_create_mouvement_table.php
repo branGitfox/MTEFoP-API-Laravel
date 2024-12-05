@@ -19,6 +19,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained('users', 'id');
             $table->enum('type', ['transfert', 'recuperation']);
             $table->enum('status', ['reçu', 'non reçu']);
+            $table->string('description');
             $table->string('propr')->nullable();
             $table->timestamps();
         });
