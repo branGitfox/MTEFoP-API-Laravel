@@ -19,6 +19,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained('users', 'id');
             $table->enum('type', ['transfert', 'recuperation']);
             $table->enum('status', ['reçu', 'non reçu']);
+            $table->foreignId('serv_id')->constrained('servs', 'id')->cascadeOnDelete();
             $table->string('description');
             $table->enum('transfere', ['non', 'oui']);
             $table->string('propr')->nullable();

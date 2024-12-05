@@ -14,6 +14,8 @@ class Mouvement extends Model
         'type',
         'status',
         'propr',
-        'description'
+        'description',
+        'transfere',
+        'serv_id'
     ];
 }

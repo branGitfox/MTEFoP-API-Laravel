@@ -20,12 +20,12 @@ Route::apiResource('/dir', DirController::class);
 Route::apiResource('/serv', ServController::class);
 
 //route pour les action d'un utilisateur
-Route::post('/register', [AuthController::class, 'register']);
+Route::post('/register', [AuthController::class, 'register'])->middleware('auth:sanctum');
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
-Route::post('/updateStatus/{user_id}', [AuthController::class, 'updateStatus'])->middleware(('auth:sanctum'));
-Route::post('/updateUser/password', [AuthController::class, 'updateUserPassword'])->middleware(('auth:sanctum'));
-Route::post('/updateUser/info', [AuthController::class, 'updateUserInfo'])->middleware(('auth:sanctum'));
+Route::post('/updateStatus/{user_id}', [AuthController::class, 'updateStatus'])->middleware('auth:sanctum');
+Route::post('/updateUser/password', [AuthController::class, 'updateUserPassword'])->middleware('auth:sanctum');
+Route::post('/updateUser/info', [AuthController::class, 'updateUserInfo'])->middleware('auth:sanctum');
 
 //route pour la recuperation de la liste de services
 Route::get('/services/{id_dir}', [ServiceController::class, 'getListOfServByDirection']);
@@ -36,4 +36,5 @@ Route::get('/docs', [CourrierController::class, 'fetchDocs'])->middleware('auth:
 
 //route pour le transfert courriers
 Route::post('/transDoc', [MouvementController::class, 'makeMovement']);
+Route::get('/getDocsHistory/{doc_id}', [MouvementController::class, 'getMovements']);
 

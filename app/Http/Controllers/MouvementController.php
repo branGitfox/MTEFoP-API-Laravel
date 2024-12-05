@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Mouvement;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class MouvementController extends Controller
 {
@@ -19,7 +20,9 @@ class MouvementController extends Controller
             'type' => 'required',
             'status' => 'required',
             'propr' =>'required',
-            'description' => 'required'
+            'description' => 'required',
+            'transfere' => 'required',
+            'serv_id' => 'required'
         ]);
         Mouvement::create($fields);
 
@@ -27,4 +30,19 @@ class MouvementController extends Controller
             'message' => 'Courrier bien transfere'
         ];
     }
+
+    /**
+     * Recuperation des historiques de transfert
+     */
+
+     public function getMovements(Request $request){
+        $doc_id = $request->route('doc_id');
+
+        $history = DB::table('mouvements')
+        ->where('courrier_id', '=', $doc_id)
+        ->join('servs', 'servs.id', '=', 'mouvements.serv_id')
+        ->join('users', 'users.id', '=', 'mouvements.user_id')->get();
+
+        return $history;
+     }
 }
