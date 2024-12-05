@@ -17,6 +17,9 @@ return new class extends Migration
             $table->string('ref_propre');
             $table->foreignId('courrier_id')->constrained('courriers', 'id')->cascadeOnDelete();
             $table->foreignId('user_id')->constrained('users', 'id');
+            $table->enum('type', ['transfert', 'recuperation']);
+            $table->enum('status', ['reçu', 'non reçu']);
+            $table->string('propr')->nullable();
             $table->timestamps();
         });
     }
