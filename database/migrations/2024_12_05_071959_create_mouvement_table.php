@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('mouvement', function (Blueprint $table) {
             $table->id();
+            $table->string('ref_initial');
+            $table->string('ref_propre');
+            $table->foreignId('courrier_id')->constrained('courriers', 'id')->cascadeOnDelete();
+            $table->foreignId('user_id')->constrained('users', 'id');
             $table->timestamps();
         });
     }

@@ -16,8 +16,8 @@ return new class extends Migration
             $table->string('provenance');
             $table->string('chrono');
             $table->string('ref');
-            $table->foreignId('user_id')->constrained();
-            $table->foreignId('dir_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('user_id')->constrained('users', 'id');
+            $table->foreignId('dir_id')->constrained('dirs', 'id')->cascadeOnDelete();
             $table->string('motif');
             $table->text('caracteristique');
             $table->string('propr');
