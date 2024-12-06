@@ -15,7 +15,7 @@ class MouvementController extends Controller
             $fields = $request->validate([
             'ref_initial' =>'unique:mouvements|required',
             'ref_propre' =>'required',
-            'courrier_id' =>'exists:courriers,id|required',
+            'courrier_id' =>'exists:courriers,c_id|required',
             'user_id' => 'exists:users,id|required',
             'type' => 'required',
             'status' => 'required',
@@ -40,7 +40,7 @@ class MouvementController extends Controller
 
         $history = DB::table('mouvements')
         ->where('courrier_id', '=', $doc_id)
-        ->join('servs', 'servs.id', '=', 'mouvements.serv_id')
+        ->join('servs', 'servs.s_id', '=', 'mouvements.serv_id')
         ->join('users', 'users.id', '=', 'mouvements.user_id')->get();
 
         return $history;

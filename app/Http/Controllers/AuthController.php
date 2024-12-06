@@ -22,7 +22,7 @@ class AuthController extends Controller
             'email' => ['unique:users', 'email', 'required'],
             'im' => ['required','unique:users'],
             'id_dir' => ['required'],
-            'id_serv' => ['required', 'exists:servs,id'],
+            'id_serv' => ['required', 'exists:servs,s_id'],
             'role' => 'required',
             'status' => 'required',
             'password' => ['required', 'confirmed', 'min:8']

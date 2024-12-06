@@ -23,7 +23,7 @@ class ServController extends Controller
     {
         $fields =$request->validate([
             'nom_serv' => 'required|unique:servs',
-            'dir_id' => ['required', 'exists:dirs,id'],
+            'dir_id' => ['required', 'exists:dirs,d_id'],
             'porte_serv' => 'required'
         ], [
             'nom_serv.required' => 'Le champ Nom service est requis',

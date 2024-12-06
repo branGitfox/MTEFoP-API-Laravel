@@ -17,7 +17,7 @@ class CourrierController extends Controller
             'provenance' => 'required',
             'chrono' => 'required|unique:courriers',
             'ref' => 'required',
-            'dir_id' => 'required|exists:dirs,id',
+            'dir_id' => 'required|exists:dirs,d_id',
             'motif' => 'required',
             'caracteristique' => 'required',
             'propr' => 'required',
@@ -54,7 +54,7 @@ class CourrierController extends Controller
     public function fetchDocs(Request $request)
     {
         $docs = DB::table('courriers')
-            ->join('dirs', 'dirs.id', '=', 'courriers.dir_id')->get();
+            ->join('dirs', 'dirs.d_id', '=', 'courriers.dir_id')->get();
         return $docs;
     }
 }

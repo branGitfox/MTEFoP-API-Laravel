@@ -12,14 +12,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('mouvements', function (Blueprint $table) {
-            $table->id();
+            $table->id('m_id');
             $table->string('ref_initial');
             $table->string('ref_propre');
-            $table->foreignId('courrier_id')->constrained('courriers', 'id')->cascadeOnDelete();
+            $table->foreignId('courrier_id')->constrained('courriers', 'c_id')->cascadeOnDelete();
             $table->foreignId('user_id')->constrained('users', 'id');
             $table->enum('type', ['transfert', 'recuperation']);
             $table->enum('status', ['reçu', 'non reçu']);
-            $table->foreignId('serv_id')->constrained('servs', 'id')->cascadeOnDelete();
+            $table->foreignId('serv_id')->constrained('servs', 's_id')->cascadeOnDelete();
             $table->string('description');
             $table->enum('transfere', ['non', 'oui']);
             $table->string('propr')->nullable();

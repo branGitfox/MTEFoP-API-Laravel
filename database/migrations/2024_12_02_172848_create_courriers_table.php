@@ -12,19 +12,17 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('courriers', function (Blueprint $table) {
-            $table->id();
+            $table->id('c_id');
             $table->string('provenance');
             $table->string('chrono');
             $table->string('ref');
-            $table->foreignId('user_id')->constrained('users', 'id');
-            $table->foreignId('dir_id')->constrained('dirs', 'id')->cascadeOnDelete();
+            $table->foreignId('user_id')->constrained('users','id');
+            $table->foreignId('dir_id')->constrained('dirs','d_id')->cascadeOnDelete();
             $table->string('motif');
             $table->text('caracteristique');
             $table->string('propr');
             $table->enum('status', ['reçu', 'non reçu']);
             $table->enum('transfere', ['oui', 'non']);
-
-
             $table->timestamps();
         });
     }

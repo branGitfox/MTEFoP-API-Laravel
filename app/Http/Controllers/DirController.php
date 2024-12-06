@@ -23,7 +23,7 @@ class DirController extends Controller
     {
        $fields = $request->validate([
             'nom_dir'=> 'required|unique:dirs',
-            'dg_id' => ['required', 'exists:dgs,id'],
+            'dg_id' => ['required', 'exists:dgs,dg_id'],
             'porte_dir' => 'required'
        ],
 
