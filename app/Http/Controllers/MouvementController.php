@@ -14,7 +14,7 @@ class MouvementController extends Controller
     public function makeMovement(Request $request){
             $fields = $request->validate([
             'ref_initial' =>'unique:mouvements|required',
-            'ref_propre' =>'required',
+            'ref_propre' =>'required|unique:mouvements',
             'courrier_id' =>'exists:courriers,c_id|required',
             'user_id' => 'exists:users,id|required',
             'type' => 'required',
