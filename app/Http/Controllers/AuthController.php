@@ -174,7 +174,12 @@ class AuthController extends Controller
        */
 
        public function forgotPassword(Request $request) {
-            return 'ok';
+           $email = $request->validate([
+                'email' => 'required|email'
+            ]);
+            $user = User::where('email', $email)->first();
+            $token =   $user->createToken($request->email);
+            return $token->plainTextToken;
        }
 
         /**
@@ -183,7 +188,7 @@ class AuthController extends Controller
        */
 
        public function resetPassword(Request $request) {
-        return 'ok';
+        return $request->route('token');
    }
 
 
