@@ -168,4 +168,23 @@ class AuthController extends Controller
       }
 
 
+      /**
+       * Mot de passe oublie
+       * 
+       */
+
+       public function forgotPassword(Request $request) {
+            return 'ok';
+       }
+
+        /**
+       * rejet du Mot de passe
+       * 
+       */
+
+       public function resetPassword(Request $request) {
+        return 'ok';
+   }
+
+
 }
