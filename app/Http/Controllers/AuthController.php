@@ -199,7 +199,19 @@ class AuthController extends Controller
             $verifyToken = DB::table('personal_access_tokens')
             ->where('id', $takeTokenid)->get();
             if($verifyToken){
-                    
+                    if($user){
+                        $password = time().rand(9000000000, 999999999999999);
+                        $new_password = bcrypt($password);
+                        DB::update('update users set password = ? where email = ?', [$new_password, $email]);
+                        return [
+                            'message' => 'Votre mot de passe a ete reinitialisee',
+                            'mdp' => $password
+                        ];
+                    }else{
+                        throw new Error('Erreur d\'authentification');
+                    }
+            }else{
+                throw new Error('Action non autorise');
             }
         }
 
