@@ -175,21 +175,25 @@ class AuthController extends Controller
 
        public function forgotPassword(Request $request) {
            $email = $request->validate([
-                'email' => 'required|email'
+                'email' => 'required|email|exists:users'
             ]);
+         
             $user = User::where('email', $email)->first();
-            $token =   $user->createToken($request->email);
-            return $token->plainTextToken;
+            if($user){
+                $token =   $user->createToken($request->email);
+                return env('APP_URL').':8000/api/resetPassword/'.$token->plainTextToken;
+            }
+          
        }
 
-        /**
-       * rejet du Mot de passe
+    /**
+       * rejet du Mot de Passe
        * 
        */
 
        public function resetPassword(Request $request) {
         return $request->route('token');
-   }
+        }
 
 
 }

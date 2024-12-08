@@ -26,7 +26,7 @@ Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanc
 Route::post('/updateStatus/{user_id}', [AuthController::class, 'updateStatus'])->middleware('auth:sanctum');
 Route::post('/updateUser/password', [AuthController::class, 'updateUserPassword'])->middleware('auth:sanctum');
 Route::post('/updateUser/info', [AuthController::class, 'updateUserInfo'])->middleware('auth:sanctum');
-Route::post('/resetPassword/{token}', [AuthController::class, 'resetPassword']);
+Route::get('/resetPassword/{token}', [AuthController::class, 'resetPassword']);
 Route::post('/forgotPassword', [AuthController::class, 'forgotPassword']);
 
 //route pour la recuperation de la liste de services
