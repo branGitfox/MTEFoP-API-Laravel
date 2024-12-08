@@ -7,6 +7,7 @@ use App\Mail\SendMail;
 use App\Models\User;
 use Error;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 
@@ -176,10 +177,11 @@ class AuthController extends Controller
        public function forgotPassword(Request $request) {
            $email = $request->validate([
                 'email' => 'required|email|exists:users'
-            ]);       
+            ]);
+
             $user = User::where('email', $email)->first();
             if($user){
-                $token =   $user->createToken($request->email);
+                $token = $user->createToken($request->email);
                 return env('APP_URL').":8000/api/resetPassword/$request->email/".$token->plainTextToken;
             }        
        }
@@ -189,8 +191,16 @@ class AuthController extends Controller
        * 
        */
 
-       public function resetPassword(Request $request) {
-            $
+       public function resetPassword(Request $request){
+            $email = $request->route('email');
+            $token = $request->route('token');
+            $user = User::where('email', $email)->first();
+            $takeTokenid = explode('|', $token)[0];
+            $verifyToken = DB::table('personal_access_tokens')
+            ->where('id', $takeTokenid)->get();
+            if($verifyToken){
+                    
+            }
         }
 
 
