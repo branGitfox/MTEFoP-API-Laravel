@@ -176,14 +176,12 @@ class AuthController extends Controller
        public function forgotPassword(Request $request) {
            $email = $request->validate([
                 'email' => 'required|email|exists:users'
-            ]);
-         
+            ]);       
             $user = User::where('email', $email)->first();
             if($user){
                 $token =   $user->createToken($request->email);
-                return env('APP_URL').':8000/api/resetPassword/'.$token->plainTextToken;
-            }
-          
+                return env('APP_URL').":8000/api/resetPassword/$request->email/".$token->plainTextToken;
+            }        
        }
 
     /**
@@ -192,7 +190,7 @@ class AuthController extends Controller
        */
 
        public function resetPassword(Request $request) {
-        return $request->route('token');
+            $
         }
 
 
