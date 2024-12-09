@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-
+use App\Mail\ResetPassword;
 use App\Mail\SendMail;
 use App\Models\User;
 use Error;
@@ -182,7 +182,13 @@ class AuthController extends Controller
             $user = User::where('email', $email)->first();
             if($user){
                 $token = $user->createToken($request->email);
-                return env('APP_URL').":8000/api/resetPassword/$request->email/".$token->plainTextToken;
+                Mail::to($request->email)->send(new ResetPassword([
+                    'name' => env('APP_URL').":8000/api/resetPassword/$request->email/".$token->plainTextToken
+                ]));
+
+                return [
+                    'message' => "Lien de confirmation bien envoyee"
+                ];
             }        
        }
 
