@@ -38,10 +38,10 @@ class MouvementController extends Controller
      public function getMovements(Request $request){
         $doc_id = $request->route('doc_id');
 
-        $history = DB::table('mouvements')
+        $history = DB::table('mouvements', 'mouvements')
         ->where('courrier_id', '=', $doc_id)
         ->join('servs', 'servs.s_id', '=', 'mouvements.serv_id')
-        ->join('users', 'users.id', '=', 'mouvements.user_id')->get();
+        ->join('users', 'users.id', '=', 'mouvements.user_id')->get(['*', 'mouvements.created_at' ]);
 
         return $history;
      }
