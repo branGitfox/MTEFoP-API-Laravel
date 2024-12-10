@@ -54,7 +54,7 @@ class CourrierController extends Controller
     public function fetchDocs(Request $request)
     {
         $docs = DB::table('courriers', 'courriers')
-            ->join('dirs', 'dirs.d_id', '=', 'courriers.dir_id')->get();
+            ->join('dirs', 'dirs.d_id', '=', 'courriers.dir_id')->get(['*','courriers.created_at']);
         return $docs;
     }
 }
