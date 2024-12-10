@@ -8,10 +8,11 @@ use App\Http\Controllers\MouvementController;
 use App\Http\Controllers\ServController;
 use App\Http\Controllers\ServiceController;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/user', function (Request $request) {
-    return $request->user();
+    return DB::table('users')->join('dirs', 'dirs.d_id', '=', 'users.id_dir')->join('servs', 'servs.s_id', '=', 'users.id_serv')->where('users.id',$request->user()->id)->get();
 })->middleware('auth:sanctum');
 
 //route pour les ressources de l'api
