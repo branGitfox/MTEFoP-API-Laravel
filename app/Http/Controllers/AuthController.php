@@ -189,7 +189,9 @@ class AuthController extends Controller
                 return [
                     'message' => "Lien de confirmation bien envoyee"
                 ];
-            }        
+            }else{
+                throw new Error('Email non valide');
+            }
        }
 
     /**
