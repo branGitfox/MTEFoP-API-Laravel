@@ -57,4 +57,16 @@ class CourrierController extends Controller
             ->join('dirs', 'dirs.d_id', '=', 'courriers.dir_id')->get(['*','courriers.created_at']);
         return $docs;
     }
+
+    /**
+     * Pour supprimer un courrier
+     */
+
+     public function deleteDoc(Request $request)
+     {  
+       DB::table('courriers')->where('c_id', '=', $request->route('id_courrier'))->delete();
+       return [
+        'message' => 'Courrier supprime avec succes'
+       ];
+     }
 }

@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/user', function (Request $request) {
     return DB::table('users')->join('dirs', 'dirs.d_id', '=', 'users.id_dir')->join('servs', 'servs.s_id', '=', 'users.id_serv')->where('users.id',$request->user()->id)->first();
-    // return $request->user();
+
 })->middleware('auth:sanctum');
 
 //route pour les ressources de l'api
@@ -22,7 +22,7 @@ Route::apiResource('/dir', DirController::class);
 Route::apiResource('/serv', ServController::class);
 
 //route pour les action d'un utilisateur
-Route::post('/register', [AuthController::class, 'register']);
+Route::post('/register', [AuthController::class, 'register'])->middleware('auth:sanctum');
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
 Route::post('/updateStatus/{user_id}', [AuthController::class, 'updateStatus'])->middleware('auth:sanctum');
@@ -37,6 +37,7 @@ Route::get('/services/{id_dir}', [ServiceController::class, 'getListOfServByDire
 //route pour les actions courriers
 Route::post('/doc', [CourrierController::class, 'addDoc'])->middleware('auth:sanctum');
 Route::get('/docs', [CourrierController::class, 'fetchDocs'])->middleware('auth:sanctum');
+Route::get('/delDoc/{id_courrier}', [CourrierController::class, 'deleteDoc'])->middleware('auth:sanctum');
 
 //route pour le transfert courriers
 Route::post('/transDoc', [MouvementController::class, 'makeMovement']);
