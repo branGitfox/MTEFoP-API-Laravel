@@ -23,6 +23,7 @@ class User extends Authenticatable
         'email',
         'status',
         'id_dir',
+        'id_serv',
         'im',
         'role',
         'password',

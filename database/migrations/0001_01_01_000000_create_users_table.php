@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->integer('id_dir');
+            $table->integer('id_serv');
             $table->string('im');
             $table->enum('status', ['active', 'desactive']);
             $table->enum('role', ['admin', 'sp', 'serv', 'scc']);
