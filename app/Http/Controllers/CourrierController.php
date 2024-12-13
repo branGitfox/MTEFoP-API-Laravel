@@ -59,6 +59,16 @@ class CourrierController extends Controller
     }
 
     /**
+     * Pour recuperer la liste de tous les courriers par direction
+     */
+
+     public function fetchDocsByDirection(Request $request) 
+     {
+        $id_dir = $request->user()->id_dir;
+        return $id_dir;
+     }
+
+    /**
      * Pour supprimer un courrier
      */
 
