@@ -25,6 +25,7 @@ class MouvementController extends Controller
             'serv_id' => 'required'
         ]);
         Mouvement::create($fields);
+        DB::update('update courriers set transfere = ? where c_id = ?', ['oui',$request->courrier_id]);
 
         return [
             'message' => 'Courrier bien transfere'

@@ -80,7 +80,7 @@ class CourrierController extends Controller
      {
          $id_doc = $request->route('id_doc');
          $docs = DB::table('courriers', 'courriers')
-             ->join('dirs', 'dirs.d_id', '=', 'courriers.dir_id')->join('users', 'users.id', '=', 'courriers.user_id')->where('courriers.c_id', '=', $id_doc)->get(['*', 'courriers.created_at', 'courriers.status']);
+             ->join('dirs', 'dirs.d_id', '=', 'courriers.dir_id')->join('users', 'users.id', '=', 'courriers.user_id')->where('courriers.c_id', '=', $id_doc)->first(['*', 'courriers.created_at', 'courriers.status']);
          return $docs;
      }
     /**
