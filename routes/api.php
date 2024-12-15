@@ -36,8 +36,10 @@ Route::get('/services/{id_dir}', [ServiceController::class, 'getListOfServByDire
 
 //route pour les actions courriers
 Route::post('/doc', [CourrierController::class, 'addDoc'])->middleware('auth:sanctum');
+Route::post('/docUpdateLivre/{id_doc}', [CourrierController::class, 'updateLivre'])->middleware('auth:sanctum');
 Route::get('/docs', [CourrierController::class, 'fetchDocs'])->middleware('auth:sanctum');
 Route::get('/docsByDirection', [CourrierController::class, 'fetchDocsByDirection'])->middleware('auth:sanctum');
+Route::get('/docByDirection/{id_doc}', [CourrierController::class, 'fetchDocByOneByDirection'])->middleware('auth:sanctum');
 Route::get('/delDoc/{id_courrier}', [CourrierController::class, 'deleteDoc'])->middleware('auth:sanctum');
 
 //route pour le transfert courriers
