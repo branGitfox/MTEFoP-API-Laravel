@@ -78,7 +78,7 @@ class CourrierController extends Controller
 
      public function fetchDocByOneByDirection(Request $request)
      {
-         $id_dir = $request->user()->id_dir;
+         $id_doc = $request->route('id_doc');
          $docs = DB::table('courriers', 'courriers')
              ->join('dirs', 'dirs.d_id', '=', 'courriers.dir_id')->join('users', 'users.id', '=', 'courriers.user_id')->where('courriers.dir_id', '=', $id_dir)->get(['*', 'courriers.created_at', 'courriers.status']);
          return $docs;
