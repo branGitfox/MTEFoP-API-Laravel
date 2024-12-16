@@ -53,7 +53,7 @@ class MouvementController extends Controller
  
       public function getListTransDocByDirection(Request $request)
       {
-        $id_dir = $request->user()->id_dir;
+        $id_dir = $request->user()->id_serv;
        $trans =  DB::table('mouvements', 'mouvements')
         ->join('servs', 'servs.s_id', '=', 'mouvements.serv_id')
         ->join('courriers', 'courriers.c_id', '=', 'mouvements.courrier_id')
