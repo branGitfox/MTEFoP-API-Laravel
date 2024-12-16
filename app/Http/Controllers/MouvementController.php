@@ -19,7 +19,7 @@ class MouvementController extends Controller
             'user_id' => 'exists:users,id|required',
             'type' => 'required',
             'status' => 'required',
-            'propr' =>'required',
+            'propr' =>'',
             'description' => 'required',
             'transfere' => 'required',
             'serv_id' => 'required'
@@ -46,4 +46,21 @@ class MouvementController extends Controller
 
         return $history;
      }
+
+     /**
+      * Recupere la liste de courrier transfere dans une direction
+      */
+ 
+      public function getListTransDocByDirection(Request $request)
+      {
+        $id_dir = $request->user()->id_dir;
+       $trans =  DB::table('mouvements', 'mouvements')
+        ->join('servs', 'servs.s_id', '=', 'mouvements.serv_id')
+        ->join('courriers', 'courriers.c_id', '=', 'mouvements.courrier_id')
+        ->join('users', 'users.id', '=', 'mouvements.user_id')
+        ->where('mouvements.serv_id',$id_dir)->get(['*', 'mouvements.created_at', 'mouvements.status', 'mouvements.ref_initial', 'mouvements.ref_propre', 'mouvements.serv_id', 'mouvements.propr']);
+        return $trans;
+      }
+
+     
 }
