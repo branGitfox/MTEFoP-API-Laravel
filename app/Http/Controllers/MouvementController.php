@@ -33,6 +33,31 @@ class MouvementController extends Controller
         ];
     }
 
+        /**
+     * Transferer un courrier
+     */
+    public function makeMovementMove(Request $request){
+        $fields = $request->validate([
+        'ref_initial' =>'required',
+        'ref_propre' =>'required',
+        'courrier_id' =>'exists:courriers,c_id|required',
+        'user_id' => 'exists:users,id|required',
+        'type' => 'required',
+        'status' => 'required',
+        'propr' =>'',
+        'description' => 'required',
+        'transfere' => 'required',
+        'serv_id' => 'required',
+        'current_trans_id' =>'required'
+    ]);
+    Mouvement::create($fields);
+    DB::update('update mouvements set transfere = ? where m_id = ?', ['oui',$request->courrier_id]);
+
+    return [
+        'message' => 'Courrier bien transfere'
+    ];
+}
+
     /**
      * Recuperation des historiques de transfert
      */
