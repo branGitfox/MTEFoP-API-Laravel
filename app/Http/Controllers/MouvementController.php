@@ -13,8 +13,8 @@ class MouvementController extends Controller
      */
     public function makeMovement(Request $request){
             $fields = $request->validate([
-            'ref_initial' =>'unique:mouvements|required',
-            'ref_propre' =>'required|unique:mouvements',
+            'ref_initial' =>'required',
+            'ref_propre' =>'required',
             'courrier_id' =>'exists:courriers,c_id|required',
             'user_id' => 'exists:users,id|required',
             'type' => 'required',
@@ -93,7 +93,7 @@ class MouvementController extends Controller
          ->join('servs', 'servs.s_id', '=', 'mouvements.serv_id')
          ->join('courriers', 'courriers.c_id', '=', 'mouvements.courrier_id')
          ->join('users', 'users.id', '=', 'mouvements.user_id')
-         ->where('mouvements.serv_id','=',$id_serv, 'and', 'mouvements.transfere = oui')->get(['*', 'mouvements.created_at', 'mouvements.status', 'mouvements.ref_initial', 'mouvements.ref_propre', 'mouvements.serv_id', 'mouvements.propr', 'mouvements.transfere']);
+         ->where('mouvements.current_trans_id',$id_serv)->get(['*', 'mouvements.created_at', 'mouvements.status', 'mouvements.ref_initial', 'mouvements.ref_propre', 'mouvements.serv_id', 'mouvements.propr', 'mouvements.transfere']);
          return $trans;
        }
 
