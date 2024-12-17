@@ -58,7 +58,7 @@ class MouvementController extends Controller
         ->join('servs', 'servs.s_id', '=', 'mouvements.serv_id')
         ->join('courriers', 'courriers.c_id', '=', 'mouvements.courrier_id')
         ->join('users', 'users.id', '=', 'mouvements.user_id')
-        ->where('servs.dir_id',$id_dir)->get(['*', 'mouvements.created_at', 'mouvements.status', 'mouvements.ref_initial', 'mouvements.ref_propre', 'mouvements.serv_id', 'mouvements.propr']);
+        ->where('servs.dir_id',$id_dir)->get(['*', 'mouvements.created_at', 'mouvements.status', 'mouvements.ref_initial', 'mouvements.ref_propre', 'mouvements.serv_id', 'mouvements.propr', 'mouvements.transfere']);
         return $trans;
       }
       
@@ -75,7 +75,7 @@ class MouvementController extends Controller
         ->join('servs', 'servs.s_id', '=', 'mouvements.serv_id')
         ->join('courriers', 'courriers.c_id', '=', 'mouvements.courrier_id')
         ->join('users', 'users.id', '=', 'mouvements.user_id')
-        ->where('mouvements.serv_id',$id_serv)->get(['*', 'mouvements.created_at', 'mouvements.status', 'mouvements.ref_initial', 'mouvements.ref_propre', 'mouvements.serv_id', 'mouvements.propr']);
+        ->where('mouvements.serv_id',$id_serv)->get(['*', 'mouvements.created_at', 'mouvements.status', 'mouvements.ref_initial', 'mouvements.ref_propre', 'mouvements.serv_id', 'mouvements.propr', 'mouvements.transfere']);
         return $trans;
       }
 
