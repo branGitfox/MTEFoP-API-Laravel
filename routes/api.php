@@ -46,5 +46,6 @@ Route::get('/delDoc/{id_courrier}', [CourrierController::class, 'deleteDoc'])->m
 Route::post('/transDoc', [MouvementController::class, 'makeMovement'])->middleware('auth:sanctum');
 Route::get('/moveByDirection', [MouvementController::class, 'getListTransDocByDirection'])->middleware('auth:sanctum');
 Route::get('/moveByService', [MouvementController::class, 'getListTransDocByService'])->middleware('auth:sanctum');
+Route::get('/moveTransferedByService', [MouvementController::class, 'getListTransferedDocByService'])->middleware('auth:sanctum');
 Route::get('/getDocsHistory/{doc_id}', [MouvementController::class, 'getMovements']);
 

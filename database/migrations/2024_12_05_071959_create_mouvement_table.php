@@ -22,6 +22,7 @@ return new class extends Migration
             $table->foreignId('serv_id')->constrained('servs', 's_id')->cascadeOnDelete();
             $table->string('description');
             $table->enum('transfere', ['non', 'oui']);
+            $table->integer('current_trans_id');
             $table->string('propr')->nullable();
             $table->timestamps();
         });

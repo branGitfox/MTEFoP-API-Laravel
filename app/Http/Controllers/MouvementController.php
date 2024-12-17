@@ -22,7 +22,8 @@ class MouvementController extends Controller
             'propr' =>'',
             'description' => 'required',
             'transfere' => 'required',
-            'serv_id' => 'required'
+            'serv_id' => 'required',
+            'current_trans_id' =>'required'
         ]);
         Mouvement::create($fields);
         DB::update('update courriers set transfere = ? where c_id = ?', ['oui',$request->courrier_id]);
@@ -63,7 +64,7 @@ class MouvementController extends Controller
       }
       
       /**
-       *  Recupere la liste de courrier transfere dans une direction
+       *  Recupere la liste de courrier dans un service
        *
        */
       
@@ -78,6 +79,23 @@ class MouvementController extends Controller
         ->where('mouvements.serv_id',$id_serv)->get(['*', 'mouvements.created_at', 'mouvements.status', 'mouvements.ref_initial', 'mouvements.ref_propre', 'mouvements.serv_id', 'mouvements.propr', 'mouvements.transfere']);
         return $trans;
       }
+
+            /**
+       *  Recupere la liste de courrier transfere dans un service
+       *
+       */
+      
+ 
+       public function getListTransferedDocByService(Request $request)
+       {
+         $id_serv = $request->user()->id_serv;
+         $trans =  DB::table('mouvements', 'mouvements')
+         ->join('servs', 'servs.s_id', '=', 'mouvements.serv_id')
+         ->join('courriers', 'courriers.c_id', '=', 'mouvements.courrier_id')
+         ->join('users', 'users.id', '=', 'mouvements.user_id')
+         ->where('mouvements.serv_id','=',$id_serv, 'and', 'mouvements.transfere = oui')->get(['*', 'mouvements.created_at', 'mouvements.status', 'mouvements.ref_initial', 'mouvements.ref_propre', 'mouvements.serv_id', 'mouvements.propr', 'mouvements.transfere']);
+         return $trans;
+       }
 
 
      
