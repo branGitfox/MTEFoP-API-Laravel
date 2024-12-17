@@ -98,5 +98,27 @@ class MouvementController extends Controller
        }
 
 
+
+    /**
+     * Pour modifier  le champ livre (recu ou non recu)
+     */
+
+    public function updateLivre(Request $request)
+    {
+        $id_doc = $request->route('id_doc');
+        $courrier = Mouvement::where('m_id', $id_doc)->first(['status']);
+        $new_status = '';
+        if ($courrier->status == 'non reçu') 
+        {
+            $new_status = 'reçu';
+        }else{
+            $new_status = 'non reçu';
+        }
+
+        DB::update('update mouvements set status = ? where m_id = ?', [$new_status, $id_doc]);
+        return [
+            'message' => 'Courrier bien reçu'
+        ];
+    }
      
 }

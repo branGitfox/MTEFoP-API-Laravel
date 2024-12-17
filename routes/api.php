@@ -7,6 +7,7 @@ use App\Http\Controllers\DirController;
 use App\Http\Controllers\MouvementController;
 use App\Http\Controllers\ServController;
 use App\Http\Controllers\ServiceController;
+use App\Models\Mouvement;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
@@ -44,6 +45,7 @@ Route::get('/delDoc/{id_courrier}', [CourrierController::class, 'deleteDoc'])->m
 
 //route pour le transfert courriers
 Route::post('/transDoc', [MouvementController::class, 'makeMovement'])->middleware('auth:sanctum');
+Route::post('/docUpdateLivreMove/{id_doc}', [MouvementController::class, 'updateLivre'])->middleware('auth:sanctum');
 Route::get('/moveByDirection', [MouvementController::class, 'getListTransDocByDirection'])->middleware('auth:sanctum');
 Route::get('/moveByService', [MouvementController::class, 'getListTransDocByService'])->middleware('auth:sanctum');
 Route::get('/moveTransferedByService', [MouvementController::class, 'getListTransferedDocByService'])->middleware('auth:sanctum');
