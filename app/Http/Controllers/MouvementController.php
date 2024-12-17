@@ -121,4 +121,16 @@ class MouvementController extends Controller
         ];
     }
      
+      /**
+     * Pour recuperer un seul courrier par service
+     */
+
+     public function fetchDocByOneByService(Request $request)
+     {
+         $id_doc = $request->route('id_doc');
+         $docs = DB::table('mouvements', 'mouvements')
+         ->join('courriers', 'courriers.c_id', '=', 'mouvements.courrier_id')
+             ->join('servs', 'servs.s_id', '=', 'mouvements.serv_id')->join('users', 'users.id', '=', 'mouvements.user_id')->where('mouvements.m_id', '=', $id_doc)->first(['*', 'mouvements.created_at', 'mouvements.status']);
+         return $docs;
+     }
 }
