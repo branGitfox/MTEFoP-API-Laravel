@@ -54,3 +54,8 @@ Route::get('/moveByService', [MouvementController::class, 'getListTransDocByServ
 Route::get('/moveTransferedByService', [MouvementController::class, 'getListTransferedDocByService'])->middleware('auth:sanctum');
 Route::get('/getDocsHistory/{doc_id}', [MouvementController::class, 'getMovements']);
 
+//route pour les statistiques
+Route::get('/stats/count', [CourrierController::class, 'courrierCount'])->middleware('auth:sanctum');
+Route::get('/stats/date', [CourrierController::class, 'listDate'])->middleware('auth:sanctum');
+Route::get('/stats/notLivred', [CourrierController::class, 'courrierNotLivred'])->middleware('auth:sanctum');
+Route::get('/stats/livred', [CourrierController::class, 'courrierLivred'])->middleware('auth:sanctum');

@@ -23,7 +23,8 @@ class CourrierController extends Controller
                 'caracteristique' => 'required',
                 'propr' => 'required',
                 'user_id' => ['required', 'exists:users,id'],
-                'status' => 'required'
+                'status' => 'required',
+                'transfere' => 'required'
             ],
             [
                 'provenance.required' => 'Le champ provenance est requis',
@@ -125,5 +126,47 @@ class CourrierController extends Controller
         ->where('ref', $request->ref)
         ->join('dirs', 'dirs.d_id', '=', 'courriers.dir_id')->first(['*', 'courriers.created_at', 'courriers.status']);
         return $docs;
+    }
+
+    //************************************************ STATISTIQUE *****************************************************************************************************
+
+    /**
+     * Liste de dossier
+     */
+
+    public function courrierCount() {
+      return Courrier::all(['created_at']);
+    }
+
+    /**
+     * Liste des dates
+     */
+
+     public function listDate() {
+        $list = Courrier::all(['created_at']);
+        $dates = [];
+
+        foreach($list as $date){
+          $exp =  substr($date['created_at'], 0, 7);
+             array_push($dates, $exp);
+        }
+
+       return array_unique($dates);
+    }
+
+    /**
+     * Liste de dossier non livre
+     */
+
+    public function courrierNotLivred() {
+        return DB::table('courriers')->where('status', 'non reçu')->get(['created_at']);
+    }
+
+     /**
+     * Liste de dossier non livre
+     */
+
+     public function courrierLivred() {
+        return DB::table('courriers')->where('status', 'reçu')->get(['created_at']);
     }
 }

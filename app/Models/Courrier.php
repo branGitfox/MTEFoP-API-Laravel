@@ -18,7 +18,8 @@ class Courrier extends Model
         'caracteristique',
         'propr',
         'user_id',
-        'status'
+        'status',
+        'transfere'
     ];
 
     public function courriers () {
