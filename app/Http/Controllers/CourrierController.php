@@ -116,4 +116,11 @@ class CourrierController extends Controller
             'message' => 'Courrier bien reçu'
         ];
     }
+
+    /**
+     * Recherche d'un document via son reference
+     */
+    public function findMyDoc(Request $request){
+
+    }
 }
