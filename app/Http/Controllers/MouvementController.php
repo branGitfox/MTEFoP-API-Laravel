@@ -51,7 +51,7 @@ class MouvementController extends Controller
         'current_trans_id' =>'required'
     ]);
     Mouvement::create($fields);
-    DB::update('update mouvements set transfere = ? where m_id = ?', ['oui',$request->courrier_id]);
+    DB::update('update mouvements set transfere = ? where m_id = ?', ['oui',$request->route('m_id')]);
 
     return [
         'message' => 'Courrier bien transfere'
