@@ -121,6 +121,9 @@ class CourrierController extends Controller
      * Recherche d'un document via son reference
      */
     public function findMyDoc(Request $request){
-
+        $docs = DB::table('courriers', 'courriers')
+        ->where('ref', $request->ref)
+        ->join('dirs', 'dirs.d_id', '=', 'courriers.dir_id')->first(['*', 'courriers.created_at', 'courriers.status']);
+        return $docs;
     }
 }
