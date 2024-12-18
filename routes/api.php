@@ -42,7 +42,7 @@ Route::get('/docs', [CourrierController::class, 'fetchDocs'])->middleware('auth:
 Route::get('/docsByDirection', [CourrierController::class, 'fetchDocsByDirection'])->middleware('auth:sanctum');
 Route::get('/docByDirection/{id_doc}', [CourrierController::class, 'fetchDocByOneByDirection'])->middleware('auth:sanctum');
 Route::get('/delDoc/{id_courrier}', [CourrierController::class, 'deleteDoc'])->middleware('auth:sanctum');
-Route::get('/findDoc', [CourrierController::class, 'findMyDoc']);
+Route::post('/findDoc', [CourrierController::class, 'findMyDoc']);
 
 //route pour le transfert courriers
 Route::post('/transDoc', [MouvementController::class, 'makeMovement'])->middleware('auth:sanctum');
