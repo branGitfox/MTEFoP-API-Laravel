@@ -223,5 +223,18 @@ class AuthController extends Controller
             }
         }
 
+        /**
+         * 
+         * Recupere la liste d'utilisateurs
+         */
+
+         public function usersList() {
+            $users = DB::table('users', 'users')
+            ->join('servs', 'servs.s_id', '=', 'users.id_serv')
+            ->join('dirs', 'dirs.d_id', '=', 'users.id_dir')
+            ->get(['*', 'users.created_at', 'users.updated_at']);
+
+            return $users;
+         }
 
 }
