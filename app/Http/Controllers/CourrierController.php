@@ -21,7 +21,7 @@ class CourrierController extends Controller
                 'dir_id' => 'required|exists:dirs,d_id',
                 'motif' => 'required',
                 'caracteristique' => 'required',
-                'propr' => 'required',
+                'proprietaire' => 'required',
                 'user_id' => ['required', 'exists:users,id'],
                 'status' => 'required',
                 'transfere' => 'required'
@@ -168,5 +168,15 @@ class CourrierController extends Controller
 
      public function courrierLivred() {
         return DB::table('courriers')->where('status', 'reçu')->get(['created_at']);
+    }
+
+    /**
+     * donnee de graphique
+     */
+
+     public function graph() {
+        return [
+
+        ];
     }
 }

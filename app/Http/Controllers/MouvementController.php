@@ -67,6 +67,7 @@ class MouvementController extends Controller
 
         $history = DB::table('mouvements', 'mouvements')
         ->where('courrier_id', '=', $doc_id)
+    
         ->join('servs', 'servs.s_id', '=', 'mouvements.serv_id')
         ->join('users', 'users.id', '=', 'mouvements.user_id')->get(['*', 'mouvements.created_at' ]);
         return $history;

@@ -16,7 +16,7 @@ class Courrier extends Model
         'dir_id',
         'motif',
         'caracteristique',
-        'propr',
+        'proprietaire',
         'user_id',
         'status',
         'transfere'

@@ -18,7 +18,7 @@ return new class extends Migration
             $table->integer('id_serv');
             $table->string('im');
             $table->enum('status', ['active', 'desactive']);
-            $table->enum('role', ['admin', 'sp', 'serv', 'scc']);
+            $table->enum('role', ['admin', 'sp', 'serv', 'scc', 'agent']);
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password'); 

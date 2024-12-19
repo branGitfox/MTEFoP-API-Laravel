@@ -24,6 +24,7 @@ Route::apiResource('/serv', ServController::class);
 
 //route pour les action d'un utilisateur
 Route::post('/register', [AuthController::class, 'register'])->middleware('auth:sanctum');
+Route::get('/usersList', [AuthController::class, 'usersList'])->middleware('auth:sanctum');
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
 Route::post('/updateStatus/{user_id}', [AuthController::class, 'updateStatus'])->middleware('auth:sanctum');
@@ -59,3 +60,4 @@ Route::get('/stats/count', [CourrierController::class, 'courrierCount'])->middle
 Route::get('/stats/date', [CourrierController::class, 'listDate'])->middleware('auth:sanctum');
 Route::get('/stats/notLivred', [CourrierController::class, 'courrierNotLivred'])->middleware('auth:sanctum');
 Route::get('/stats/livred', [CourrierController::class, 'courrierLivred'])->middleware('auth:sanctum');
+Route::get('/stats/graph', [CourrierController::class, 'graph'])->middleware('auth:sanctum');

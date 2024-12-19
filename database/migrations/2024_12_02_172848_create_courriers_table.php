@@ -20,7 +20,7 @@ return new class extends Migration
             $table->foreignId('dir_id')->constrained('dirs','d_id')->cascadeOnDelete();
             $table->string('motif');
             $table->text('caracteristique');
-            $table->string('propr');
+            $table->string('proprietaire');
             $table->enum('status', ['reçu', 'non reçu']);
             $table->enum('transfere', ['oui', 'non']);
             $table->timestamps();
