@@ -118,7 +118,9 @@ class AuthController extends Controller
        }
 
     $user->update(['status' => $user->status]);
-    return $user;
+    return [
+        'message' => 'status de compte modifie'
+    ];
     }
 
     /**

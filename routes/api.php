@@ -7,7 +7,9 @@ use App\Http\Controllers\DirController;
 use App\Http\Controllers\MouvementController;
 use App\Http\Controllers\ServController;
 use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\VisitorController;
 use App\Models\Mouvement;
+use App\Models\Visitor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
@@ -61,3 +63,7 @@ Route::get('/stats/date', [CourrierController::class, 'listDate'])->middleware('
 Route::get('/stats/notLivred', [CourrierController::class, 'courrierNotLivred'])->middleware('auth:sanctum');
 Route::get('/stats/livred', [CourrierController::class, 'courrierLivred'])->middleware('auth:sanctum');
 Route::get('/stats/graph', [CourrierController::class, 'graph'])->middleware('auth:sanctum');
+
+//route pour l'augmentation du nombre de visiteurs
+Route::get('/visitors', [VisitorController::class, 'increment']);
+
