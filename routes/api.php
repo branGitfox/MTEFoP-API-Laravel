@@ -7,6 +7,7 @@ use App\Http\Controllers\DirController;
 use App\Http\Controllers\MouvementController;
 use App\Http\Controllers\ServController;
 use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\SupportController;
 use App\Http\Controllers\VisitorController;
 use App\Models\Mouvement;
 use App\Models\Visitor;
@@ -66,4 +67,7 @@ Route::get('/stats/graph', [CourrierController::class, 'graph'])->middleware('au
 
 //route pour l'augmentation du nombre de visiteurs
 Route::get('/visitors', [VisitorController::class, 'increment']);
+
+//route pour le support technique
+Route::post('/support', [SupportController::class, 'sendMessage']);
 
