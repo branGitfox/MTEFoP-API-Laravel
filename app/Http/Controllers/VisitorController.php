@@ -11,16 +11,18 @@ class VisitorController extends Controller
 {
     public function increment(){
         $find = DB::table('visitors')->where('v_id', 1)->first();
-        if(!empty($find)){
+        if($find){
             $increment = $find->nbr + 1;
 
           DB::update('update visitors set nbr = ? where v_id = ?',[ $increment, 1]);
           $new =DB::table('visitors')->where('v_id', 1)->first();
          return $new->nbr;
-        }else{
-
-            return  Visitor::create(['nbr' => 0]);
         }
+
+            Visitor::create(['nbr' => 0]);
+          $new =DB::table('visitors')->where('v_id', 1)->first();
+            return $new->nbr;
+        
 
         
     }
