@@ -70,4 +70,5 @@ Route::get('/visitors', [VisitorController::class, 'increment']);
 
 //route pour le support technique
 Route::post('/support', [SupportController::class, 'sendMessage']);
+Route::get('/getMessages', [SupportController::class, 'getMessages']);
 

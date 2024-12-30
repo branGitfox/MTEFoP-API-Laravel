@@ -19,4 +19,8 @@ class SupportController extends Controller
             'message' => 'message bien envoyee'
         ];
     }
+
+    public function getMessages(Request $request){
+        return Support::all();
+    }
 }
