@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Courrier;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Rules\Unique;
 
 class CourrierController extends Controller
 {
@@ -143,15 +144,26 @@ class CourrierController extends Controller
      */
 
      public function listDate() {
-        $list =Courrier::all(['created_at'])->unique();
+        $list = Courrier::all();
         $dates = [];
 
         foreach($list as $date){
-          $exp =  substr($date['created_at'], 0, 7);
-             array_push($dates, $exp);
+          $exp =  substr($date->created_at, 0, 7);
+   
+
+              array_push($dates, $exp);
+          
+            
+ 
         }
 
-        return  $dates;
+        $unique =     array_unique($dates);
+        $filtered = [];
+        foreach($unique as $date) {
+            array_push($filtered, $date);
+        }
+
+        return $filtered;
     }
 
     /**
