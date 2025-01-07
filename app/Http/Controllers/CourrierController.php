@@ -143,7 +143,7 @@ class CourrierController extends Controller
      */
 
      public function listDate() {
-        $list = Courrier::all(['created_at']);
+        $list =Courrier::all(['created_at'])->unique();
         $dates = [];
 
         foreach($list as $date){
@@ -151,7 +151,7 @@ class CourrierController extends Controller
              array_push($dates, $exp);
         }
 
-       return array_unique($dates);
+        return  $dates;
     }
 
     /**
