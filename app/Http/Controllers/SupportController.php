@@ -8,6 +8,9 @@ use Illuminate\Support\Facades\DB;
 
 class SupportController extends Controller
 {
+    /**
+     * Enregistre le mesage envoye par les visiteurs dans la base de donnees
+     */
     public function sendMessage(Request $request){
         $fields = $request->validate([
             'email' => 'required|email',
@@ -21,6 +24,9 @@ class SupportController extends Controller
         ];
     }
 
+    /**
+     * Recuperation de la liste de messages filtrer decroissant
+     */
     public function getMessages(){
         return DB::table('supports')->orderByDesc('su_id')->get();
     }
