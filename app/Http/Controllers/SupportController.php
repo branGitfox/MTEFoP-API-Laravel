@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Support;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class SupportController extends Controller
 {
@@ -20,7 +21,7 @@ class SupportController extends Controller
         ];
     }
 
-    public function getMessages(Request $request){
-        return Support::all();
+    public function getMessages(){
+        return DB::table('supports')->orderByDesc('su_id')->get();
     }
 }
