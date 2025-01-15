@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Courrier;
+use App\Models\Dir;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rules\Unique;
@@ -187,8 +188,10 @@ class CourrierController extends Controller
      */
 
      public function numberOfDocByDirection() {
+        //recuperation de la liste de direction
+        $dir = Dir::all();
         return [
-            'message ok'
+           'dir' => $dir
         ];
     }
 }
