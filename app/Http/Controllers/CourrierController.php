@@ -191,7 +191,7 @@ class CourrierController extends Controller
         //recuperation de la liste de direction
         $dirs = Dir::all();
         $data = [];
-        
+
         //calcul de nombre de courriers pour chaque direction
         foreach($dirs as $dir){
             $list_doc = DB::table('courriers')->where('dir_id', $dir['d_id'])->get(['created_at']);
