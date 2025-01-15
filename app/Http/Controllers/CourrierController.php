@@ -183,7 +183,7 @@ class CourrierController extends Controller
     }
 
     /**
-     * nombre de courrier vers min
+     * Recuperation de nombre de courriers par direction
      */
 
      public function graph() {

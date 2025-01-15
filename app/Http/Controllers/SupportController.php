@@ -30,4 +30,6 @@ class SupportController extends Controller
     public function getMessages(){
         return DB::table('supports')->orderByDesc('su_id')->get();
     }
+
+  
 }
