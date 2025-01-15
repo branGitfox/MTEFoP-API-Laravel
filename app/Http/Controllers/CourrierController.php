@@ -186,9 +186,9 @@ class CourrierController extends Controller
      * Recuperation de nombre de courriers par direction
      */
 
-     public function graph() {
+     public function numberOfDocByDirection() {
         return [
-
+            'message ok'
         ];
     }
 }
