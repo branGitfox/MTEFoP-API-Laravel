@@ -189,9 +189,14 @@ class CourrierController extends Controller
 
      public function numberOfDocByDirection() {
         //recuperation de la liste de direction
-        $dir = Dir::all();
-        return [
-           'dir' => $dir
-        ];
+        $dirs = Dir::all();
+        $data = [];
+        
+        //calcul de nombre de courriers pour chaque direction
+        foreach($dirs as $dir){
+            $list_doc = DB::table('courriers')->where('dir_id', $dir['d_id'])->get(['created_at']);
+            array_push($data, [$dir['nom_dir'],count($list_doc)]);
+        }
+        return $data;
     }
 }
