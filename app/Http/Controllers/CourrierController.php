@@ -199,4 +199,12 @@ class CourrierController extends Controller
         }
         return $data;
     }
+
+    /**
+     * Gere le filtrage de la date periodique
+     */
+
+     public function filterPeriodDate(Request $request)  {
+        return $request->start;
+     }
 }
