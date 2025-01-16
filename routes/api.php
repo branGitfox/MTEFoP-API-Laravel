@@ -65,6 +65,7 @@ Route::get('/stats/notLivred', [CourrierController::class, 'courrierNotLivred'])
 Route::get('/stats/livred', [CourrierController::class, 'courrierLivred'])->middleware('auth:sanctum');
 Route::get('/stats/graph', [CourrierController::class, 'graph'])->middleware('auth:sanctum');
 Route::get('/stats/countByDirection', [CourrierController::class, 'numberOfDocByDirection']);
+Route::post('/stats/period', [CourrierController::class, 'filterPeriodDate']);
 
 //route pour l'augmentation du nombre de visiteurs
 Route::get('/visitors', [VisitorController::class, 'increment']);
