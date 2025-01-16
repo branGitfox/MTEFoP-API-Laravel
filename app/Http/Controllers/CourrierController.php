@@ -205,6 +205,13 @@ class CourrierController extends Controller
      */
 
      public function filterPeriodDate(Request $request)  {
-      return  DB::table('courriers')->where('created_at', '>=', $request->start)->where('created_at', '<=', $request->end)->get(['created_at']);
+        if(!empty($request->start) && !empty($request->end)){
+            $start = $request->start;
+            $end = $request->end;
+        }else {
+            $start =$end = time('y-m-d');
+           
+        }
+      return  DB::table('courriers')->where('created_at', '>=', $start)->where('created_at', '<=', $end)->get(['created_at']);
      }
 }
