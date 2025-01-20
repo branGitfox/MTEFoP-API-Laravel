@@ -31,5 +31,8 @@ class SupportController extends Controller
         return DB::table('supports')->orderByDesc('su_id')->get();
     }
 
+
+
+
   
 }
