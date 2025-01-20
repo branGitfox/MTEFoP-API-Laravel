@@ -15,7 +15,7 @@ class VisitorController extends Controller
         if($find){
             $increment = $find->nbr + 1;
 
-          DB::update('update visitors set nbr = ?, date = ? where v_id = ?',[ $increment, 1, $date]);
+          DB::update('update visitors set nbr = ?, date = ? where v_id = ?',[ $increment, $date, 1]);
           $new =DB::table('visitors')->where('v_id', 1)->first();
          return $new->nbr;
         }
