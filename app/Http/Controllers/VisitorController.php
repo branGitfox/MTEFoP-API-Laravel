@@ -1,30 +1,40 @@
 <?php
 
 namespace App\Http\Controllers;
-
-use App\Http\Requests\StoreVisitorRequest;
-use App\Http\Requests\UpdateVisitorRequest;
 use App\Models\Visitor;
 use Illuminate\Support\Facades\DB;
 
 class VisitorController extends Controller
 {
     public function increment(){
-        $find = DB::table('visitors')->where('v_id', 1)->first();
         $date = date('y-m-d');
-        if($find){
-            $increment = $find->nbr + 1;
+        $find = DB::table('visitors')->where('date', $date)->first();
+    //     if($find){
+    //         $increment = $find->nbr + 1;
 
-          DB::update('update visitors set nbr = ?, date = ? where v_id = ?',[ $increment, $date, 1]);
-          $new =DB::table('visitors')->where('v_id', 1)->first();
-         return $new->nbr;
-        }
+    //       DB::update('update visitors set nbr = ?,  where date = ?',[ $increment, $date]);
+    //       $new =DB::table('visitors')->get();
+    //      return count($new);
+    //     }
 
-            Visitor::create(['nbr' => 0]);
-          $new =DB::table('visitors')->where('v_id', 1)->first();
-            return $new->nbr;
-        
-
+    //         
+    // }
+    if($find){
+      $increment = $find->nbr + 1;
+      DB::update('update visitors set nbr = ?  where date = ?',[ $increment, $date]);      
+    }else{
+       Visitor::create(['nbr' => 1, 'date' => $date]);
         
     }
+
+    $visits = DB::table('visitors')->get(['nbr']);
+    $counter = 0;
+    foreach($visits as $visit) {
+      $counter+= $visit->nbr;
+
+    }
+
+    return $counter;
+}
+
 }
