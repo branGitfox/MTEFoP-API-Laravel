@@ -10,6 +10,7 @@ class Visitor extends Model
     /** @use HasFactory<\Database\Factories\VisitorFactory> */
     use HasFactory;
     protected $fillable = [
-        'nbr'
+        'nbr',
+        'date'
     ];
 }

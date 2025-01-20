@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('visitors', function (Blueprint $table) {
             $table->id('v_id');
+            $table->string('date');
             $table->integer('nbr')->nullable();
             $table->timestamps();
         });

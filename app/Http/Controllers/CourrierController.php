@@ -208,11 +208,7 @@ class CourrierController extends Controller
         if(!empty($request->start) && !empty($request->end)){
             $start = $request->start;
             $end = $request->end;
-           
             return  DB::table('courriers')->whereDate('created_at', '>=', $start)->whereDate('created_at', '<=', $end)->get(['created_at']);
-     
-          
-
         }else{
             return  DB::table('courriers')->get(['created_at']);
         }
