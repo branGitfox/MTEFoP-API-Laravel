@@ -9,16 +9,7 @@ class VisitorController extends Controller
     public function increment(){
         $date = date('y-m-d');
         $find = DB::table('visitors')->where('date', $date)->first();
-    //     if($find){
-    //         $increment = $find->nbr + 1;
-
-    //       DB::update('update visitors set nbr = ?,  where date = ?',[ $increment, $date]);
-    //       $new =DB::table('visitors')->get();
-    //      return count($new);
-    //     }
-
-    //         
-    // }
+ 
     if($find){
       $increment = $find->nbr + 1;
       DB::update('update visitors set nbr = ?  where date = ?',[ $increment, $date]);      
@@ -27,6 +18,7 @@ class VisitorController extends Controller
         
     }
 
+    //recuperer toutes les lignes de la table visiteurs puis boucler et additionner l e champ nbr
     $visits = DB::table('visitors')->get(['nbr']);
     $counter = 0;
     foreach($visits as $visit) {
