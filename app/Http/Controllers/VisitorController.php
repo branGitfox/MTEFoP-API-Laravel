@@ -10,10 +10,13 @@ class VisitorController extends Controller
         $date = date('y-m-d');
         $find = DB::table('visitors')->where('date', $date)->first();
  
+        //chercher dans la table visiteur si une ligne avec la date courante existe deja
     if($find){
+      //si
       $increment = $find->nbr + 1;
       DB::update('update visitors set nbr = ?  where date = ?',[ $increment, $date]);      
     }else{
+      //sinon
        Visitor::create(['nbr' => 1, 'date' => $date]);
         
     }
