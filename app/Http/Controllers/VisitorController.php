@@ -11,10 +11,11 @@ class VisitorController extends Controller
 {
     public function increment(){
         $find = DB::table('visitors')->where('v_id', 1)->first();
+        $date = date('y-m-d');
         if($find){
             $increment = $find->nbr + 1;
 
-          DB::update('update visitors set nbr = ? where v_id = ?',[ $increment, 1]);
+          DB::update('update visitors set nbr = ?, date = ? where v_id = ?',[ $increment, 1, $date]);
           $new =DB::table('visitors')->where('v_id', 1)->first();
          return $new->nbr;
         }
