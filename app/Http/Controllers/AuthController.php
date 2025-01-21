@@ -20,7 +20,7 @@ class AuthController extends Controller
         
         $fields = $request->validate([
             'name' => ['required', 'max:255'],
-            'email' => ['unique:users', 'email', 'required'],
+            'email' => ['unique:users', 'email', 'required',],
             'im' => ['required','unique:users'],
             'id_dir' => ['required'],
             'id_serv' => ['required', 'exists:servs,s_id'],
