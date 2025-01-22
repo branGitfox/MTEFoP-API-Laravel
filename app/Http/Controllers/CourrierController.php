@@ -175,6 +175,21 @@ class CourrierController extends Controller
         return DB::table('courriers')->where('status', 'non reçu')->get(['created_at']);
     }
 
+    /**
+     * Liste de dossier non livre par periode
+     */
+
+     public function courrierNotLivredByPeriod(Request $request) {
+        if(!empty($request->start) && !empty($request->end)){
+            $start = $request->start;
+            $end = $request->end;
+        
+            return DB::table('courriers')->where('status', 'non reçu')->whereDate('created_at', '>=', $start)->whereDate('created_at', '<=', $end)->get(['created_at']);
+        }else {
+            return DB::table('courriers')->where('status', 'non reçu')->get(['created_at']);
+        }
+    }
+
      /**
      * Liste de dossier non livre
      */
