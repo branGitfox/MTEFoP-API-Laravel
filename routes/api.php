@@ -62,7 +62,7 @@ Route::get('/getDocsHistory/{doc_id}', [MouvementController::class, 'getMovement
 Route::get('/stats/count', [CourrierController::class, 'courrierCount'])->middleware('auth:sanctum');
 Route::get('/stats/date', [CourrierController::class, 'listDate'])->middleware('auth:sanctum');
 Route::get('/stats/notLivred', [CourrierController::class, 'courrierNotLivred'])->middleware('auth:sanctum');
-Route::get('/stats/notLivredByPeriod', [CourrierController::class, 'courrierNotLivredByPeriod'])->middleware('auth:sanctum');
+Route::post('/stats/notLivredByPeriod', [CourrierController::class, 'courrierNotLivredByPeriod'])->middleware('auth:sanctum');
 Route::get('/stats/livred', [CourrierController::class, 'courrierLivred'])->middleware('auth:sanctum');
 Route::get('/stats/graph', [CourrierController::class, 'graph'])->middleware('auth:sanctum');
 Route::get('/stats/countByDirection', [CourrierController::class, 'numberOfDocByDirection']);
