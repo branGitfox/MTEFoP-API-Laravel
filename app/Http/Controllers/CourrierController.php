@@ -197,6 +197,7 @@ class CourrierController extends Controller
             $list_doc = DB::table('courriers')->where('dir_id', $dir['d_id'])->get(['created_at']);
             array_push($data, [$dir['nom_dir'],$list_doc]);
         }
+        
         return $data;
     }
 
