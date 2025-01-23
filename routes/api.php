@@ -72,6 +72,7 @@ Route::post('/stats/period', [CourrierController::class, 'filterPeriodDate']);
 
 //route pour l'augmentation du nombre de visiteurs
 Route::get('/visitors', [VisitorController::class, 'increment']);
+Route::post('/visitors/period', [VisitorController::class, 'showNumberOfVisitByPeriod']);
 
 //route pour le support technique
 Route::post('/support', [SupportController::class, 'sendMessage']);

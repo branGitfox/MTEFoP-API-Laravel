@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\Visitor;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class VisitorController extends Controller
@@ -30,6 +31,35 @@ class VisitorController extends Controller
     }
 
     return $counter;
+
+    
 }
+
+
+  //affichage periodique du nombre de visiteurs par periode
+
+  public function showNumberOfVisitByPeriod(Request $request){
+    if(!empty($request->start) && !empty($request->end)){
+      $start = $request->start;
+      $end = $request->end;
+
+        $view_list = DB::table('visitors')->whereDate('date', '>=', $start)->whereDate('date', '<=', $end)->get(['nbr']);
+        $counter = 0;
+        foreach($view_list as $view){
+          $counter+= $view->nbr;
+        }
+
+        return $view_list;
+    }else {
+        $view_list = Visitor::all(['nbr']);
+        $counter = 0;
+        
+        foreach($view_list as $view){
+          $counter+= $view->nbr;
+        }
+
+        return $counter;
+    }
+  }
 
 }
