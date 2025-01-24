@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Courrier;
 use App\Models\Dir;
+use App\Models\Mouvement;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rules\Unique;
@@ -139,6 +140,14 @@ class CourrierController extends Controller
     public function courrierCount() {
       return Courrier::all(['created_at']);
     }
+
+    /**
+     * nombre courrier decharger
+     */
+    public function courrierGotByOwnerCount() {
+        return count(DB::table('mouvement')->where('type', 'recuperation')->get(['type']));
+    }
+
 
     /**
      * Liste des dates
