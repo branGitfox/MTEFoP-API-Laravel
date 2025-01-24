@@ -148,6 +148,12 @@ class CourrierController extends Controller
         return count(DB::table('mouvements')->where('type', 'recuperation')->get(['type']));
     }
 
+        /**
+     * nombre courrier decharger
+     */
+    public function courrierNotGotByOwnerCount(){
+        return count(DB::table('mouvements')->where('type',  'transfert')->get(['type']));
+    }
 
     /**
      * Liste des dates
@@ -192,7 +198,7 @@ class CourrierController extends Controller
         if(!empty($request->start) && !empty($request->end)){
             $start = $request->start;
             $end = $request->end;
-
+         
             return DB::table('courriers')->whereDate('created_at', '>=', $start)->whereDate('created_at', '<=', $end)->where('status', 'non reçu')->get(['created_at']);
         }else {
 
