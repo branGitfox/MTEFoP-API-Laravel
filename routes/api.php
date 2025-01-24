@@ -72,7 +72,8 @@ Route::post('/stats/period', [CourrierController::class, 'filterPeriodDate']);
 
 //route pour l'augmentation du nombre de visiteurs
 Route::get('/visitors', [VisitorController::class, 'increment']);
-Route::post('/visitors/period', [VisitorController::class, 'showNumberOfVisitByPeriod']);
+Route::get('/visitors/charts', [VisitorController::class, 'getViewPeriodForChartLine'])->middleware('auth:sanctum');
+Route::post('/visitors/period', [VisitorController::class, 'showNumberOfVisitByPeriod'])->middleware('auth:sanctum');
 
 //route pour le support technique
 Route::post('/support', [SupportController::class, 'sendMessage']);

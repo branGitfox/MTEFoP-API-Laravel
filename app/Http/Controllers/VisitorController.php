@@ -49,7 +49,7 @@ class VisitorController extends Controller
           $counter+= $view->nbr;
         }
 
-        return $view_list;
+        return $counter;
     }else {
         $view_list = Visitor::all(['nbr']);
         $counter = 0;
@@ -61,5 +61,20 @@ class VisitorController extends Controller
         return $counter;
     }
   }
+
+    /**
+     * recuperation la liste de nombre de vue preparer pour le 
+     */
+    public function getViewPeriodForChartLine() {
+      $views =  Visitor::all(['nbr']);
+      $datas = [];
+      foreach($views as $view){
+          array_push($datas, ['nbr' => $view->nbr]);
+      }
+
+      return $datas;
+    }
+
+
 
 }
