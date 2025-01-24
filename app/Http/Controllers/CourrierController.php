@@ -145,7 +145,7 @@ class CourrierController extends Controller
      * nombre courrier decharger
      */
     public function courrierGotByOwnerCount() {
-        return count(DB::table('mouvement')->where('type', 'recuperation')->get(['type']));
+        return count(DB::table('mouvements')->where('type', 'recuperation')->get(['type']));
     }
 
 
