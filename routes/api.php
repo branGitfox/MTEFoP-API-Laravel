@@ -19,6 +19,9 @@ Route::get('/user', function (Request $request) {
     return DB::table('users')->join('dirs', 'dirs.d_id', '=', 'users.id_dir')->join('servs', 'servs.s_id', '=', 'users.id_serv')->where('users.id',$request->user()->id)->first();
 
 })->middleware('auth:sanctum');
+Route::get('/userCount', [AuthController::class, 'userCount'] )->middleware('auth:sanctum');
+
+
 
 //route pour les ressources de l'api
 Route::apiResource('/dg', DgController::class);

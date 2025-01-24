@@ -239,4 +239,12 @@ class AuthController extends Controller
             return $users;
          }
 
+         /**
+          * Recupere le nombre total d'utilisateur
+          */
+
+          public function userCount() {
+            return count(User::all());
+          }
+
 }
