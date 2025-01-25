@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id('c_id');
             $table->string('provenance');
             $table->string('chrono');
+            $table->string('cin');
+            $table->string('tel');
             $table->string('ref');
             $table->foreignId('user_id')->constrained('users','id');
             $table->foreignId('dir_id')->constrained('dirs','d_id')->cascadeOnDelete();

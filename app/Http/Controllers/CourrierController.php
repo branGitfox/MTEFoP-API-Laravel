@@ -27,7 +27,10 @@ class CourrierController extends Controller
                 'proprietaire' => 'required',
                 'user_id' => ['required', 'exists:users,id'],
                 'status' => 'required',
-                'transfere' => 'required'
+                'transfere' => 'required',
+                'cin' => 'required',
+                'tel' => 'required',
+
             ],
             [
                 'provenance.required' => 'Le champ provenance est requis',
@@ -41,9 +44,14 @@ class CourrierController extends Controller
                 'propr.required' => 'Le champ proprietaire est requis',
                 'user_id.required' => 'Vous devez vous connecter avant de pouvoir poursuivre cette action',
                 'user_id.exists' => 'Vous devez vous connecter avant de pouvoir poursuivre cette action',
-                'status.required' => 'Le champ status est requis'
+                'status.required' => 'Le champ status est requis',
+                'cin.required' => 'le champ cin requis',
+                'tel.required' => 'Le champ numero est requis'
             ]
         );
+
+
+     
 
         Courrier::create($fields);
 

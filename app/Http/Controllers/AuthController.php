@@ -247,4 +247,8 @@ class AuthController extends Controller
             return count(User::all());
           }
 
+          /**
+           * 
+           */
+
 }

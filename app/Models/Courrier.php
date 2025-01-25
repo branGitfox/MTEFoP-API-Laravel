@@ -15,6 +15,8 @@ class Courrier extends Model
         'ref',
         'dir_id',
         'motif',
+        'cin',
+        'tel',
         'caracteristique',
         'proprietaire',
         'user_id',
