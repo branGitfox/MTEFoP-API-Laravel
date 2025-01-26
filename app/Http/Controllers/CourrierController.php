@@ -124,7 +124,7 @@ class CourrierController extends Controller
             $new_status = 'non reçu';
         }
 
-       $updated =  DB::update('update courriers set status = ? where c_id = ?', [$new_status, $id_doc]);
+        DB::update('update courriers set status = ? where c_id = ?', [$new_status, $id_doc]);
         return [
             'message' => 'Courrier bien reçu'
         ];
@@ -271,7 +271,7 @@ class CourrierController extends Controller
                 $list_doc = DB::table('courriers')->whereDate('created_at', '>=', $start)->whereDate('created_at', '<=', $end)->where('dir_id', $dir['d_id'])->get(['created_at']);
                 array_push($data, [$dir['nom_dir'],$list_doc]);
             }
-            // return  DB::table('courriers')->whereDate('created_at', '>=', $start)->whereDate('created_at', '<=', $end)->get(['created_at']);
+
         }else{
                   //calcul de nombre de courriers pour chaque direction
                   foreach($dirs as $dir){
@@ -303,6 +303,34 @@ class CourrierController extends Controller
             $list_doc = DB::table('mouvements', 'mouvements')->where('mouvements.serv_id', $serv->s_id)->get(['*']);
             array_push($data, [$serv->nom_serv,$list_doc]);
         }
+        
+        return $data;
+    }
+
+            /**
+     * Recuperation de nombre de courriers par Service
+     */
+
+     public function numberOfDocByServiceNoFilter(Request $request) {
+        //recuperation de la liste de direction
+        $servs= DB::table('servs')->get();
+        $data = [];
+        if(!empty($request->start) && !empty($request->end)){
+            $start = $request->start;
+            $end = $request->end;    
+            //calcul de nombre de courriers pour chaque direction
+        foreach($servs as $serv){
+            $list_doc = DB::table('mouvements', 'mouvements')->whereDate('created_at', '>=', $start)->whereDate('created_at', '<=', $end)->where('mouvements.serv_id', $serv->s_id)->get(['*']);
+            array_push($data, [$serv->nom_serv,$list_doc]);
+        }
+        }else{
+                      //calcul de nombre de courriers pour chaque direction
+        foreach($servs as $serv){
+            $list_doc = DB::table('mouvements', 'mouvements')->where('mouvements.serv_id', $serv->s_id)->get(['*']);
+            array_push($data, [$serv->nom_serv,$list_doc]);
+        }
+        }
+    
         
         return $data;
     }
