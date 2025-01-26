@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Courrier;
 use App\Models\Dir;
 use App\Models\Mouvement;
+use App\Models\Serv;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rules\Unique;
@@ -152,15 +153,32 @@ class CourrierController extends Controller
     /**
      * nombre courrier decharger
      */
-    public function courrierGotByOwnerCount() {
-        return count(DB::table('mouvements')->where('type', 'recuperation')->get(['type']));
+    public function courrierGotByOwnerCount(Request $request) {
+        if(!empty($request->start) && !empty($request->end)){
+            $start = $request->start;
+            $end = $request->end;
+            return count(DB::table('mouvements')->whereDate('created_at', '>=', $start)->whereDate('created_at', '<=', $end)->where('type', 'recuperation')->get(['type']));
+
+        }else{
+
+            return count(DB::table('mouvements')->where('type', 'recuperation')->get(['type'])); 
+        }
+
     }
 
-        /**
+    /**
      * nombre courrier decharger
      */
-    public function courrierNotGotByOwnerCount(){
-        return count(DB::table('mouvements')->where('type',  'transfert')->get(['type']));
+    public function courrierNotGotByOwnerCount(Request $request){
+        if(!empty($request->start) && !empty($request->end)){
+            $start = $request->start;
+            $end = $request->end;
+            return count(DB::table('mouvements')->whereDate('created_at', '>=', $start)->whereDate('created_at', '<=', $end)->where('type', 'transfert')->get(['type']));
+
+        }else{
+
+            return count(DB::table('mouvements')->where('type', 'transfert')->get(['type'])); 
+        }
     }
 
     /**
@@ -242,15 +260,48 @@ class CourrierController extends Controller
      * Recuperation de nombre de courriers par direction
      */
 
-     public function numberOfDocByDirection() {
-        //recuperation de la liste de direction
+     public function numberOfDocByDirection(Request $request) {
+        $data = [];
         $dirs = Dir::all();
+        if(!empty($request->start) && !empty($request->end)){
+            $start = $request->start;
+            $end = $request->end;    
+                //calcul de nombre de courriers pour chaque direction
+            foreach($dirs as $dir){
+                $list_doc = DB::table('courriers')->whereDate('created_at', '>=', $start)->whereDate('created_at', '<=', $end)->where('dir_id', $dir['d_id'])->get(['created_at']);
+                array_push($data, [$dir['nom_dir'],$list_doc]);
+            }
+            // return  DB::table('courriers')->whereDate('created_at', '>=', $start)->whereDate('created_at', '<=', $end)->get(['created_at']);
+        }else{
+                  //calcul de nombre de courriers pour chaque direction
+                  foreach($dirs as $dir){
+                    $list_doc = DB::table('courriers')->where('dir_id', $dir['d_id'])->get(['created_at']);
+                    array_push($data, [$dir['nom_dir'],$list_doc]);
+                }
+        }
+        //recuperation de la liste de direction
+        
+   
+
+   
+        
+        return $data;
+    }
+
+
+        /**
+     * Recuperation de nombre de courriers par Service
+     */
+
+     public function numberOfDocByService(Request $request) {
+        //recuperation de la liste de direction
+        $servs= DB::table('servs')->where('dir_id',$request->user()->id_dir)->get();
         $data = [];
 
         //calcul de nombre de courriers pour chaque direction
-        foreach($dirs as $dir){
-            $list_doc = DB::table('courriers')->where('dir_id', $dir['d_id'])->get(['created_at']);
-            array_push($data, [$dir['nom_dir'],$list_doc]);
+        foreach($servs as $serv){
+            $list_doc = DB::table('mouvements', 'mouvements')->where('mouvements.serv_id', $serv->s_id)->get(['*']);
+            array_push($data, [$serv->nom_serv,$list_doc]);
         }
         
         return $data;
