@@ -11,6 +11,7 @@ use App\Http\Controllers\SupportController;
 use App\Http\Controllers\VisitorController;
 use App\Models\Mouvement;
 use App\Models\Visitor;
+use Database\Factories\CourrierFactory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
@@ -71,9 +72,10 @@ Route::post('/stats/notLivredByPeriod', [CourrierController::class, 'courrierNot
 Route::get('/stats/livred', [CourrierController::class, 'courrierLivred'])->middleware('auth:sanctum');
 Route::post('/stats/livredByPeriod', [CourrierController::class, 'courrierLivredByPeriod'])->middleware('auth:sanctum');
 Route::get('/stats/graph', [CourrierController::class, 'graph'])->middleware('auth:sanctum');
-Route::get('/stats/countByService', [CourrierController::class, 'numberOfDocByService'])->middleware('auth:sanctum');
+Route::post('/stats/countByService', [CourrierController::class, 'numberOfDocByService'])->middleware('auth:sanctum');
 Route::post('/stats/countByServiceNoFilter', [CourrierController::class, 'numberOfDocByServiceNoFilter'])->middleware('auth:sanctum');
-Route::post('/stats/countByDirection', [CourrierController::class, 'numberOfDocByDirection']);
+Route::post('/stats/countByDirectionAdmin', [CourrierController::class, 'numberOfDocByDirectionAdmin']);
+Route::get('/stats/countByDirection', [CourrierController::class, 'numberOfDocByDirection']);
 Route::post('/stats/countByDirectionByPeriod', [CourrierController::class, 'numberOfDocByDirectionByPeriod']);
 Route::post('/stats/period', [CourrierController::class, 'filterPeriodDate']);
 

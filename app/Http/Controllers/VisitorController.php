@@ -62,6 +62,10 @@ class VisitorController extends Controller
     }
   }
 
+  public function getAdressIp() {
+    return $_SERVER['REMOTE_ADDR'];
+ }
+
     /**
      * recuperation la liste de nombre de vue preparer pour le 
      */
