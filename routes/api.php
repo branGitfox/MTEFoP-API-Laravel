@@ -78,6 +78,8 @@ Route::post('/stats/countByDirectionAdmin', [CourrierController::class, 'numberO
 Route::get('/stats/countByDirection', [CourrierController::class, 'numberOfDocByDirection']);
 Route::post('/stats/countByDirectionByPeriod', [CourrierController::class, 'numberOfDocByDirectionByPeriod']);
 Route::post('/stats/period', [CourrierController::class, 'filterPeriodDate']);
+Route::post('/stats/countDocByDirection', [CourrierController::class, 'countDocByDirection'])->middleware('auth:sanctum');
+
 
 //route pour l'augmentation du nombre de visiteurs
 Route::get('/visitors', [VisitorController::class, 'increment']);
