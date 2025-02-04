@@ -288,6 +288,7 @@ class CourrierController extends Controller
             }
 
         }else{   
+            
       
                   //calcul de nombre de courriers pour chaque direction
                   foreach($dirs as $dir){
