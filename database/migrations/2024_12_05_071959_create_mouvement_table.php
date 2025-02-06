@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id('m_id');
             $table->string('ref_initial');
             $table->string('ref_propre');
+            $table->foreignId('id_dg')->constrained('dgs', 'dg_id')->cascadeOnDelete();
             $table->foreignId('courrier_id')->constrained('courriers', 'c_id')->cascadeOnDelete();
             $table->foreignId('user_id')->constrained('users', 'id');
             $table->enum('type', ['transfert', 'recuperation']);
