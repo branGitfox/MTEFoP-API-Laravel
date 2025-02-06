@@ -23,7 +23,8 @@ class MouvementController extends Controller
             'description' => 'required',
             'transfere' => 'required',
             'serv_id' => 'required',
-            'current_trans_id' =>'required'
+            'current_trans_id' =>'required',
+            'id_dg' => 'required'
         ]);
         Mouvement::create($fields);
         DB::update('update courriers set transfere = ? where c_id = ?', ['oui',$request->courrier_id]);
