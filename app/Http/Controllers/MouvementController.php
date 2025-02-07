@@ -49,7 +49,8 @@ class MouvementController extends Controller
         'description' => 'required',
         'transfere' => 'required',
         'serv_id' => 'required',
-        'current_trans_id' =>'required'
+        'current_trans_id' =>'required',
+        'id_dg' => 'required'
     ]);
     Mouvement::create($fields);
     DB::update('update mouvements set transfere = ? where m_id = ?', ['oui',$request->route('m_id')]);
@@ -69,8 +70,9 @@ class MouvementController extends Controller
         $history = DB::table('mouvements', 'mouvements')
         ->where('courrier_id', '=', $doc_id)
     
-        ->join('servs', 'servs.s_id', '=', 'mouvements.serv_id')
-        ->join('users', 'users.id', '=', 'mouvements.user_id')->get(['*', 'mouvements.created_at' ]);
+        ->leftJoin('servs', 'servs.s_id', '=', 'mouvements.serv_id')
+        ->leftJoin('dirs', 'dirs.d_id', '=', 'mouvements.id_dg')
+        ->join('users', 'users.id', '=', 'mouvements.user_id')->get(['*', 'mouvements.created_at']);
         return $history;
      }
 
