@@ -108,6 +108,57 @@ class CourrierController extends Controller
         ];
     }
 
+        /**
+     * Pour supprimer un courrier
+     */
+
+     public function updateDoc(Request $request)
+     {
+        $fields = $request->validate(
+            [
+                'provenance' => 'required',
+                'chrono' => 'required|unique:courriers',
+                'ref' => 'required',
+                'dir_id' => 'required|exists:dirs,d_id',
+                'motif' => 'required',
+                'caracteristique' => 'required',
+                'proprietaire' => 'required',
+                'user_id' => ['required', 'exists:users,id'],
+                'status' => 'required',
+                'transfere' => 'required',
+                'cin' => 'required',
+                'tel' => 'required',
+
+            ],
+            [
+                'provenance.required' => 'Le champ provenance est requis',
+                'chrono.required' => 'Le champ chrono est requis',
+                'chrono.unique' => 'Le chrono existe deja',
+                'ref.required' => 'Le champ reference est requis',
+                'dir_id.required' => 'Le champ Direction est requis',
+                'dir_id.exists' => 'Cette Direction n\'existe pas',
+                'motif.required' => 'Le champ motif est requis',
+                'caracteristique.required' => 'Le champ caracteristique est requis',
+                'propr.required' => 'Le champ proprietaire est requis',
+                'user_id.required' => 'Vous devez vous connecter avant de pouvoir poursuivre cette action',
+                'user_id.exists' => 'Vous devez vous connecter avant de pouvoir poursuivre cette action',
+                'status.required' => 'Le champ status est requis',
+                'cin.required' => 'le champ cin requis',
+                'tel.required' => 'Le champ numero est requis'
+            ]
+        );
+         DB::table('courriers')->where('c_id', '=', $request->route('id_courrier'))->update($fields);
+         return [
+             'message' => 'Courrier mofidie avec succes'
+         ];
+     }
+
+     /**recuperation d'un courrier par id */
+     public function getDoc(Request $request){
+        $id_doc = $request->route('id_doc');
+        return DB::table('courriers')->where('c_id', '=', $id_doc)->first();
+     }
+
     /**
      * Pour modifier  le champ livre (recu ou non recu)
      */
