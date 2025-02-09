@@ -117,7 +117,7 @@ class CourrierController extends Controller
         $fields = $request->validate(
             [
                 'provenance' => 'required',
-                'chrono' => 'required|unique:courriers',
+                'chrono' => 'required',
                 'ref' => 'required',
                 'dir_id' => 'required|exists:dirs,d_id',
                 'motif' => 'required',

@@ -47,7 +47,7 @@ Route::get('/docs', [CourrierController::class, 'fetchDocs'])->middleware('auth:
 Route::get('/docsByDirection', [CourrierController::class, 'fetchDocsByDirection'])->middleware('auth:sanctum');
 Route::get('/docByDirection/{id_doc}', [CourrierController::class, 'fetchDocByOneByDirection'])->middleware('auth:sanctum');
 Route::get('/delDoc/{id_courrier}', [CourrierController::class, 'deleteDoc'])->middleware('auth:sanctum');
-Route::get('/upDoc/{id_courrier}', [CourrierController::class, 'updateDoc'])->middleware('auth:sanctum');
+Route::post('/upDoc/{id_courrier}', [CourrierController::class, 'updateDoc'])->middleware('auth:sanctum');
 Route::get('/getDoc/{id_doc}', [CourrierController::class, 'getDoc'])->middleware('auth:sanctum');
 Route::post('/findDoc', [CourrierController::class, 'findMyDoc']);
 
