@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('description');
             $table->enum('transfere', ['non', 'oui']);
             $table->integer('current_trans_id');
+            $table->integer('current_trans_id_dir');
             $table->string('propr')->nullable();
             $table->timestamps();
         });

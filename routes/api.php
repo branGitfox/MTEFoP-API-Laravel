@@ -59,6 +59,7 @@ Route::get('/moveByDirection', [MouvementController::class, 'getListTransDocByDi
 Route::get('/docByService/{id_doc}', [MouvementController::class, 'fetchDocByOneByService'])->middleware('auth:sanctum');
 Route::get('/moveByService', [MouvementController::class, 'getListTransDocByService'])->middleware('auth:sanctum');
 Route::get('/moveTransferedByService', [MouvementController::class, 'getListTransferedDocByService'])->middleware('auth:sanctum');
+Route::get('/moveTransferedToService', [MouvementController::class, 'getListTransferedDocToService'])->middleware('auth:sanctum');
 Route::get('/getDocsHistory/{doc_id}', [MouvementController::class, 'getMovements']);
 
 //route pour les statistiques

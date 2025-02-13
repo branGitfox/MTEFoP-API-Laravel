@@ -24,7 +24,9 @@ class MouvementController extends Controller
             'transfere' => 'required',
             'serv_id' => 'required',
             'current_trans_id' =>'required',
-            'id_dg' => 'required'
+            'id_dg' => 'required',
+            'current_trans_id_dir' => 'required'
+
         ]);
         Mouvement::create($fields);
         DB::update('update courriers set transfere = ? where c_id = ?', ['oui',$request->courrier_id]);
@@ -50,8 +52,11 @@ class MouvementController extends Controller
         'transfere' => 'required',
         'serv_id' => 'required',
         'current_trans_id' =>'required',
-        'id_dg' => 'required'
+        'id_dg' => 'required',
+        'current_trans_id_dir' => 'required'
+
     ]);
+
     Mouvement::create($fields);
     DB::update('update mouvements set transfere = ? where m_id = ?', ['oui',$request->route('m_id')]);
 
@@ -122,10 +127,28 @@ class MouvementController extends Controller
          ->leftjoin('dirs', 'dirs.d_id', '=', 'mouvements.id_dg')
          ->join('courriers', 'courriers.c_id', '=', 'mouvements.courrier_id')
          ->join('users', 'users.id', '=', 'mouvements.user_id')
-         ->where('mouvements.current_trans_id',$id_serv)->get(['*', 'mouvements.created_at', 'mouvements.status', 'mouvements.ref_initial', 'mouvements.ref_propre', 'mouvements.serv_id', 'mouvements.propr', 'mouvements.transfere']);
+         ->where('mouvements.current_trans_id', $id_serv)->get(['*', 'mouvements.created_at', 'mouvements.status', 'mouvements.ref_initial', 'mouvements.ref_propre', 'mouvements.serv_id', 'mouvements.propr', 'mouvements.transfere']);
          return $trans;
        }
 
+                  /**
+       *  Recupere la liste de courrier transfere vers un service
+       *
+       */
+      
+ 
+       public function getListTransferedDocToService(Request $request)
+       {
+         $id_dir = $request->user()->id_dir;
+         $trans =  DB::table('mouvements', 'mouvements')
+         ->leftjoin('servs', 'servs.s_id', '=', 'mouvements.serv_id')
+         ->leftjoin('dirs', 'dirs.d_id', '=', 'mouvements.id_dg')
+         ->join('courriers', 'courriers.c_id', '=', 'mouvements.courrier_id')
+         ->join('users', 'users.id', '=', 'mouvements.user_id')
+         ->where('mouvements.current_trans_id_dir', $id_dir)
+        ->get(['*', 'mouvements.created_at', 'mouvements.status', 'mouvements.ref_initial', 'mouvements.ref_propre', 'mouvements.serv_id', 'mouvements.propr', 'mouvements.transfere']);
+         return $trans;
+       }
 
 
     /**
