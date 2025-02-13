@@ -118,7 +118,8 @@ class MouvementController extends Controller
        {
          $id_serv = $request->user()->id_serv;
          $trans =  DB::table('mouvements', 'mouvements')
-         ->join('servs', 'servs.s_id', '=', 'mouvements.serv_id')
+         ->leftjoin('servs', 'servs.s_id', '=', 'mouvements.serv_id')
+         ->leftjoin('dirs', 'dirs.d_id', '=', 'mouvements.id_dg')
          ->join('courriers', 'courriers.c_id', '=', 'mouvements.courrier_id')
          ->join('users', 'users.id', '=', 'mouvements.user_id')
          ->where('mouvements.current_trans_id',$id_serv)->get(['*', 'mouvements.created_at', 'mouvements.status', 'mouvements.ref_initial', 'mouvements.ref_propre', 'mouvements.serv_id', 'mouvements.propr', 'mouvements.transfere']);
