@@ -57,7 +57,9 @@ Route::post('/transDocMove/{m_id}', [MouvementController::class, 'makeMovementMo
 Route::post('/docUpdateLivreMove/{id_doc}', [MouvementController::class, 'updateLivre'])->middleware('auth:sanctum');
 Route::get('/moveByDirection', [MouvementController::class, 'getListTransDocByDirection'])->middleware('auth:sanctum');
 Route::get('/docByService/{id_doc}', [MouvementController::class, 'fetchDocByOneByService'])->middleware('auth:sanctum');
+Route::get('/docByServiceToSp/{id_doc}', [MouvementController::class, 'fetchDocByOneByServiceToSp'])->middleware('auth:sanctum');
 Route::get('/moveByService', [MouvementController::class, 'getListTransDocByService'])->middleware('auth:sanctum');
+Route::get('/serviceToSp', [MouvementController::class, 'moveServiceToSp'])->middleware('auth:sanctum');
 Route::get('/moveTransferedByService', [MouvementController::class, 'getListTransferedDocByService'])->middleware('auth:sanctum');
 Route::get('/moveTransferedToService', [MouvementController::class, 'getListTransferedDocToService'])->middleware('auth:sanctum');
 Route::get('/getDocsHistory/{doc_id}', [MouvementController::class, 'getMovements']);

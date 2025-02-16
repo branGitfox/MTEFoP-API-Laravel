@@ -113,6 +113,8 @@ class MouvementController extends Controller
         return $trans;
       }
 
+
+
             /**
        *  Recupere la liste de courrier transfere dans un service
        *
@@ -151,6 +153,18 @@ class MouvementController extends Controller
        }
 
 
+       /**recuperation de la liste de courriers transferer d'un service a l'sp */
+       public function moveServiceToSp(Request $request) {
+        $id_dir = $request->user()->id_dir;
+        $courriers= DB::table('mouvements', 'mouvements')
+        ->leftjoin('servs', 'servs.s_id', '=', 'mouvements.current_trans_id')
+        ->leftjoin('dirs', 'dirs.d_id', '=', 'mouvements.id_dg')
+        ->join('courriers', 'courriers.c_id', '=', 'mouvements.courrier_id')
+        ->join('users', 'users.id', '=', 'mouvements.user_id')
+        ->where('mouvements.id_dg', $id_dir)->get(['*', 'mouvements.created_at', 'mouvements.transfere', 'mouvements.status']);
+        return $courriers;
+       }
+
     /**
      * Pour modifier  le champ livre (recu ou non recu)
      */
@@ -183,6 +197,19 @@ class MouvementController extends Controller
          $docs = DB::table('mouvements', 'mouvements')
          ->join('courriers', 'courriers.c_id', '=', 'mouvements.courrier_id')
              ->join('servs', 'servs.s_id', '=', 'mouvements.serv_id')->join('users', 'users.id', '=', 'mouvements.user_id')->where('mouvements.m_id', '=', $id_doc)->first(['*', 'mouvements.created_at', 'mouvements.status']);
+         return $docs;
+     }
+
+           /**
+     * Pour recuperer un seul courrier par service *service vers sp
+     */
+
+     public function fetchDocByOneByServiceToSp(Request $request)
+     {
+         $id_doc = $request->route('id_doc');
+         $docs = DB::table('mouvements', 'mouvements')
+         ->join('courriers', 'courriers.c_id', '=', 'mouvements.courrier_id')
+             ->join('servs', 'servs.s_id', '=', 'mouvements.current_trans_id')->join('users', 'users.id', '=', 'mouvements.user_id')->where('mouvements.m_id', '=', $id_doc)->first(['*', 'mouvements.created_at', 'mouvements.status']);
          return $docs;
      }
 }
