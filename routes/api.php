@@ -78,7 +78,7 @@ Route::post('/stats/countByService', [CourrierController::class, 'numberOfDocByS
 Route::post('/stats/countByServiceNoFilter', [CourrierController::class, 'numberOfDocByServiceNoFilter'])->middleware('auth:sanctum');
 Route::post('/stats/countByDirectionAdmin', [CourrierController::class, 'numberOfDocByDirectionAdmin']);
 Route::get('/stats/countByDirection', [CourrierController::class, 'numberOfDocByDirection']);
-Route::post('/stats/countByDirectionByPeriod', [CourrierController::class, 'numberOfDocByDirectionByPeriod']);
+Route::post('/stats/countByDirectionByPeriod', [CourrierController::class, 'numberOfDocByDirectionByPeriod'])->middleware('auth:sanctum');
 Route::post('/stats/period', [CourrierController::class, 'filterPeriodDate']);
 Route::post('/stats/countDocByDirection', [CourrierController::class, 'countDocByDirection'])->middleware('auth:sanctum');
 

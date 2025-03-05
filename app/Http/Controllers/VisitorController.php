@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 
 class VisitorController extends Controller
 {
+  //incremente le nombre de vue visiteur
     public function increment(){
         $date = date('y-m-d');
         $find = DB::table('visitors')->where('date', $date)->first();
@@ -22,7 +23,7 @@ class VisitorController extends Controller
         
     }
 
-    //recuperer toutes les lignes de la table visiteurs puis boucler et additionner l e champ nbr
+    //recuperer toutes les lignes de la table visiteurs puis boucler et additionner le champ nbr
     $visits = DB::table('visitors')->get(['nbr']);
     $counter = 0;
     foreach($visits as $visit) {

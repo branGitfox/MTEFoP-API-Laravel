@@ -78,7 +78,7 @@ class AuthController extends Controller
        $user = User::where('email', $request->email)->join('dirs', 'dirs.d_id', '=', 'users.id_dir')->join('servs', 'servs.s_id', '=', 'users.id_serv')->first();
        if($user && Hash::check($request->password, $user->password)){
           
-
+        //Bloquer un utilisateur si son compte est desactivé par l'admin
             if($user->status !== 'desactive'){
                 $token = $user->createToken($user->name);
                 return [
@@ -96,7 +96,7 @@ class AuthController extends Controller
     }
 
     /**
-     * Deconnecte un utilisateur(connectee)
+     * Deconnecter un utilisateur(connecté)
      */
     public function logout(Request $request) {
         $request->user()->tokens()->delete();
@@ -149,7 +149,6 @@ class AuthController extends Controller
             throw new Error('Votre mot de passe est incorrect');
         }
 
-
     }
 
         /**
@@ -172,7 +171,7 @@ class AuthController extends Controller
 
 
       /**
-       * Mot de passe oublie
+       *Recuperation de  Mot de passe oublié
        * 
        */
 

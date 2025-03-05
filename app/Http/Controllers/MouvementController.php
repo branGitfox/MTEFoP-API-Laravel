@@ -115,7 +115,7 @@ class MouvementController extends Controller
 
 
 
-            /**
+        /**
        *  Recupere la liste de courrier transfere dans un service
        *
        */
@@ -142,12 +142,12 @@ class MouvementController extends Controller
        public function getListTransferedDocToService(Request $request)
        {
          $id_dir = $request->user()->id_dir;
-         $trans =  DB::table('mouvements', 'mouvements')
+         $trans =  DB::table('mouvements', 'mouvements')     ->where('mouvements.current_trans_id_dir', $id_dir)
          ->leftjoin('servs', 'servs.s_id', '=', 'mouvements.serv_id')
          ->leftjoin('dirs', 'dirs.d_id', '=', 'mouvements.id_dg')
          ->join('courriers', 'courriers.c_id', '=', 'mouvements.courrier_id')
          ->join('users', 'users.id', '=', 'mouvements.user_id')
-         ->where('mouvements.current_trans_id_dir', $id_dir)
+    
         ->get(['*', 'mouvements.created_at', 'mouvements.status', 'mouvements.ref_initial', 'mouvements.ref_propre', 'mouvements.serv_id', 'mouvements.propr', 'mouvements.transfere']);
          return $trans;
        }

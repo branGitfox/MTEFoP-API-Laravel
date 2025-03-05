@@ -4,12 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Courrier;
 use App\Models\Dir;
-use App\Models\Mouvement;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 
-use function Laravel\Prompts\table;
+
 
 class CourrierController extends Controller
 {
