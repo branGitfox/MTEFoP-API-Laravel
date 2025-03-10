@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\DB;
 class SupportController extends Controller
 {
     /**
-     * Enregistre le mesage envoye par les visiteurs dans la base de donnees
+     * Enregistre le message envoyé par les visiteurs dans la base de données
      */
     public function sendMessage(Request $request){
         $fields = $request->validate([

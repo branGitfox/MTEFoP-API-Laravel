@@ -226,7 +226,7 @@ class AuthController extends Controller
 
         /**
          * 
-         * Recupere la liste d'utilisateurs
+         * Recupère la liste d'utilisateurs
          */
 
          public function usersList() {
@@ -239,7 +239,7 @@ class AuthController extends Controller
          }
 
          /**
-          * Recupere le nombre total d'utilisateur
+          * Recupère le nombre total d'utilisateur
           */
 
           public function userCount() {

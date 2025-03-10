@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 class ServiceController extends Controller
 {
-    //recupere la liste des services par rapport - la direction
+    //recupère la liste des services par rapport à la direction
 
     public function getListOfServByDirection(Request $request) {
       $id_dir = $request->route('id_dir');

@@ -196,7 +196,7 @@ class CourrierController extends Controller
     //************************************************ STATISTIQUE *****************************************************************************************************
 
     /**
-     * Liste de dossier
+     * recupère le nombre total de courriers enregistrés
      */
 
     public function courrierCount()
@@ -235,7 +235,7 @@ class CourrierController extends Controller
     }
 
     /**
-     * Liste des dates
+     * Recupère la liste des dates existant pour le filtrage periodique des données
      */
 
     public function listDate()
@@ -311,7 +311,7 @@ class CourrierController extends Controller
     }
 
     /**
-     * Recuperation de nombre de courriers par direction Admin
+     * Recupèration du nombre de courriers par direction pour le dashboard  Admin
      */
 
     public function numberOfDocByDirectionAdmin(Request $request)
@@ -356,8 +356,7 @@ class CourrierController extends Controller
                 array_push($data, [$dir['nom_dir'], $list_doc, $got, $notGot]);
             }
         }
-        //recuperation de la liste de direction
-
+   
 
 
 

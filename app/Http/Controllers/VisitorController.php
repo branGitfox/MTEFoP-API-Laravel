@@ -37,7 +37,7 @@ class VisitorController extends Controller
 }
 
 
-  //affichage periodique du nombre de visiteurs par periode
+  //affichage periodique du nombre de visiteurs
 
   public function showNumberOfVisitByPeriod(Request $request){
     if(!empty($request->start) && !empty($request->end)){

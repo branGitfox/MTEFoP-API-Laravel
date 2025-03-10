@@ -116,7 +116,7 @@ class MouvementController extends Controller
 
 
         /**
-       *  Recupere la liste de courrier transfere dans un service
+       *  Recupère la liste de courrier transferé dans un service
        *
        */
       
