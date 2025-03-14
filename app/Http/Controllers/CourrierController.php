@@ -69,7 +69,8 @@ class CourrierController extends Controller
     public function fetchDocs(Request $request)
     {
         $docs = DB::table('courriers', 'courriers')
-            ->join('dirs', 'dirs.d_id', '=', 'courriers.dir_id')->get(['*', 'courriers.created_at', 'courriers.status']);
+            ->join('dirs', 'dirs.d_id', '=', 'courriers.dir_id')->paginate(10,['*', 'courriers.created_at', 'courriers.status']);
+            // get(['*', 'courriers.created_at', 'courriers.status'])
         return $docs;
     }
 
@@ -473,8 +474,8 @@ class CourrierController extends Controller
             foreach ($dirs as $dir) {
 
                 $list_doc = DB::table('courriers')->whereDate('created_at', '>=', $start)->whereDate('created_at', '<=', $end)->where('dir_id', $dir['d_id'])->get(['created_at']);
-                $notGot = DB::table('courriers')->whereDate('created_at', '>=', $start)->whereDate('created_at', '<=', $end)->where('dir_id', $dir['d_id'])->where('dir_id', $dir['d_id'])->where('status', 'non reçu')->get(['created_at']);
-                $got = DB::table('courriers')->whereDate('created_at', '>=', $start)->whereDate('created_at', '<=', $end)->where('dir_id', $dir['d_id'])->where('dir_id', $dir['d_id'])->where('status', 'reçu')->get(['created_at']);
+                $notGot = DB::table('courriers')->whereDate('created_at', '>=', $start)->whereDate('created_at', '<=', $end)->where('dir_id', $dir['d_id'])->where('status', '=', 'non reçu')->get(['created_at']);
+                $got = DB::table('courriers')->whereDate('created_at', '>=', $start)->whereDate('created_at', '<=', $end)->where('dir_id', $dir['d_id'])->where('status', '=', 'reçu')->get(['created_at']);
                 array_push($data, [$dir['nom_dir'], $list_doc, $got, $notGot]);
             }
         } else {
@@ -482,8 +483,8 @@ class CourrierController extends Controller
             foreach ($dirs as $dir) {
 
                 $list_doc = DB::table('courriers')->where('dir_id', $dir['d_id'])->get(['created_at']);
-                $notGot = DB::table('courriers')->where('dir_id', $dir['d_id'])->where('dir_id', $dir['d_id'])->where('status', 'non reçu')->get(['created_at']);
-                $got = DB::table('courriers')->where('dir_id', $dir['d_id'])->where('status', 'reçu')->get(['created_at']);
+                $notGot = DB::table('courriers')->where('dir_id', $dir['d_id'])->where('dir_id', $dir['d_id'])->where('status','=', 'non reçu')->get(['created_at']);
+                $got = DB::table('courriers')->where('dir_id', $dir['d_id'])->where('status', '=', 'reçu')->get(['created_at']);
                 array_push($data, [$dir['nom_dir'], $list_doc, $got, $notGot]);
             }
         }
