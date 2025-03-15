@@ -68,8 +68,17 @@ class CourrierController extends Controller
 
     public function fetchDocs(Request $request)
     {
+        if(isset($_GET['lines'])){
+            $lines = $_GET['lines'];
+            if($lines == 'all'){
+                $value =       count(  $docs = DB::table('courriers', 'courriers')
+                ->join('dirs', 'dirs.d_id', '=', 'courriers.dir_id')->orderBy('courriers.created_at', 'desc')->get(['*', 'courriers.created_at', 'courriers.status']));
+            }else{
+                $value = $lines;
+            }
+        }
         $docs = DB::table('courriers', 'courriers')
-            ->join('dirs', 'dirs.d_id', '=', 'courriers.dir_id')->paginate(10,['*', 'courriers.created_at', 'courriers.status']);
+            ->join('dirs', 'dirs.d_id', '=', 'courriers.dir_id')->orderBy('courriers.created_at', 'desc')->paginate($value,['*', 'courriers.created_at', 'courriers.status']);
             // get(['*', 'courriers.created_at', 'courriers.status'])
         return $docs;
     }
