@@ -233,7 +233,7 @@ class AuthController extends Controller
             $users = DB::table('users', 'users')
             ->join('servs', 'servs.s_id', '=', 'users.id_serv')
             ->join('dirs', 'dirs.d_id', '=', 'users.id_dir')
-            ->get(['*', 'users.created_at', 'users.updated_at']);
+            ->paginate(10,['*', 'users.created_at', 'users.updated_at']);
 
             return $users;
          }
