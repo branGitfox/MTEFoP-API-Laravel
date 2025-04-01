@@ -29,6 +29,7 @@ Route::apiResource('/serv', ServController::class);
 //route pour les action d'un utilisateur
 Route::post('/register', [AuthController::class, 'register'])->middleware('auth:sanctum');
 Route::get('/usersList', [AuthController::class, 'usersList'])->middleware('auth:sanctum');
+
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
 Route::post('/updateStatus/{user_id}', [AuthController::class, 'updateStatus'])->middleware('auth:sanctum');
