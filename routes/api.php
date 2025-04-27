@@ -27,7 +27,7 @@ Route::apiResource('/dir', DirController::class);
 Route::apiResource('/serv', ServController::class);
 
 //route pour les action d'un utilisateur
-Route::post('/register', [AuthController::class, 'register'])->middleware('auth:sanctum');
+Route::post('/register', [AuthController::class, 'register']);
 Route::get('/usersList', [AuthController::class, 'usersList'])->middleware('auth:sanctum');
 
 Route::post('/login', [AuthController::class, 'login']);
