@@ -30,9 +30,18 @@ class SupportController extends Controller
     public function getMessages(){
         return DB::table('supports')->orderByDesc('su_id')->get();
     }
+/*
+ *supprimer un message
+*
+ */
+
+public function deleteMessages(Request $request){
+    $id= $request->route('id');
+    DB::delete('delete from supports where su_id = ?', [$id]);
+    return [
+        'message' => "Message bien supprime"
+    ];
+}
 
 
-
-
-  
 }

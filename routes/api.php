@@ -27,7 +27,7 @@ Route::apiResource('/dir', DirController::class);
 Route::apiResource('/serv', ServController::class);
 
 //route pour les action d'un utilisateur
-Route::post('/register', [AuthController::class, 'register']);
+Route::post('/register', [AuthController::class, 'register'])->middleware("auth:sanctum");
 Route::get('/usersList', [AuthController::class, 'usersList'])->middleware('auth:sanctum');
 
 Route::post('/login', [AuthController::class, 'login']);
@@ -91,5 +91,6 @@ Route::post('/visitors/period', [VisitorController::class, 'showNumberOfVisitByP
 
 //route pour le support technique
 Route::post('/support', [SupportController::class, 'sendMessage']);
-Route::get('/getMessages', [SupportController::class, 'getMessages']);
+Route::get('/getMessages', [SupportController::class, 'getMessages'])->middleware("auth:sanctum");
+Route::get('/deleteMessages/{id}', [SupportController::class, 'deleteMessages'])->middleware("auth:sanctum");
 
