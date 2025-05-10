@@ -44,4 +44,21 @@ public function deleteMessages(Request $request){
 }
 
 
+/*
+*Effacer tout les messages
+*
+
+ */
+
+  public function deleteAllMessage() {
+  Support::delete('delete from suppors');
+
+          return [
+          'message' => "Tout les messsages ont ete supprimer"
+          ];
+  }
+
+
+
 }
+

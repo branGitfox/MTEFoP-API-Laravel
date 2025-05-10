@@ -74,7 +74,7 @@ class MouvementController extends Controller
 
         $history = DB::table('mouvements', 'mouvements')
         ->where('courrier_id', '=', $doc_id)
-    
+
         ->leftJoin('servs', 'servs.s_id', '=', 'mouvements.serv_id')
         ->leftJoin('dirs', 'dirs.d_id', '=', 'mouvements.id_dg')
         ->join('users', 'users.id', '=', 'mouvements.user_id')->get(['*', 'mouvements.created_at']);
@@ -84,7 +84,7 @@ class MouvementController extends Controller
      /**
       * Recupere la liste de courrier transfere dans une direction
       */
- 
+
       public function getListTransDocByDirection(Request $request)
       {
         $id_dir = $request->user()->id_dir;
@@ -95,13 +95,13 @@ class MouvementController extends Controller
         ->where('servs.dir_id',$id_dir)->get(['*', 'mouvements.created_at', 'mouvements.status', 'mouvements.ref_initial', 'mouvements.ref_propre', 'mouvements.serv_id', 'mouvements.propr', 'mouvements.transfere']);
         return $trans;
       }
-      
+
       /**
        *  Recupere la liste de courrier dans un service
        *
        */
-      
- 
+
+
       public function getListTransDocByService(Request $request)
       {
         $id_serv = $request->user()->id_serv;
@@ -119,8 +119,8 @@ class MouvementController extends Controller
        *  Recupère la liste de courrier transferé dans un service
        *
        */
-      
- 
+
+
        public function getListTransferedDocByService(Request $request)
        {
          $id_serv = $request->user()->id_serv;
@@ -131,14 +131,14 @@ class MouvementController extends Controller
          ->join('users', 'users.id', '=', 'mouvements.user_id')
          ->where('mouvements.current_trans_id', $id_serv)->get(['*', 'mouvements.created_at', 'mouvements.status', 'mouvements.ref_initial', 'mouvements.ref_propre', 'mouvements.serv_id', 'mouvements.propr', 'mouvements.transfere']);
          return $trans;
-       }
+       }    
 
                   /**
        *  Recupere la liste de courrier transfere vers un service
        *
        */
-      
- 
+
+
        public function getListTransferedDocToService(Request $request)
        {
          $id_dir = $request->user()->id_dir;
@@ -147,7 +147,7 @@ class MouvementController extends Controller
          ->leftjoin('dirs', 'dirs.d_id', '=', 'mouvements.id_dg')
          ->join('courriers', 'courriers.c_id', '=', 'mouvements.courrier_id')
          ->join('users', 'users.id', '=', 'mouvements.user_id')
-    
+
         ->get(['*', 'mouvements.created_at', 'mouvements.status', 'mouvements.ref_initial', 'mouvements.ref_propre', 'mouvements.serv_id', 'mouvements.propr', 'mouvements.transfere']);
          return $trans;
        }
@@ -174,7 +174,7 @@ class MouvementController extends Controller
         $id_doc = $request->route('id_doc');
         $courrier = Mouvement::where('m_id', $id_doc)->first(['status']);
         $new_status = '';
-        if ($courrier->status == 'non reçu') 
+        if ($courrier->status == 'non reçu')
         {
             $new_status = 'reçu';
         }else{
@@ -186,7 +186,7 @@ class MouvementController extends Controller
             'message' => 'Courrier bien reçu'
         ];
     }
-     
+
       /**
      * Pour recuperer un seul courrier par service
      */
