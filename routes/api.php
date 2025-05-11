@@ -93,3 +93,4 @@ Route::post('/visitors/period', [VisitorController::class, 'showNumberOfVisitByP
 Route::post('/support', [SupportController::class, 'sendMessage']);
 Route::get('/getMessages', [SupportController::class, 'getMessages'])->middleware("auth:sanctum");
 Route::get('/deleteMessages/{id}', [SupportController::class, 'deleteMessages'])->middleware("auth:sanctum");
+Route::get('/messages/deleteAll', [SupportController::class, 'deleteAllMessages'])->middleware("auth:sanctum");

@@ -43,6 +43,13 @@ public function deleteMessages(Request $request){
     ];
 }
 
+public function deleteAllMessages(){
+    DB::table('supports')->delete();
+    return [
+        'message' => 'Tous les messages ont ete bien supprime'
+    ];
+}
+
 
 /*
 *Effacer tout les messages
