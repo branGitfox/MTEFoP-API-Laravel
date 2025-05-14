@@ -104,12 +104,33 @@ class MouvementController extends Controller
 
       public function getListTransDocByService(Request $request)
       {
-        $id_serv = $request->user()->id_serv;
+          $id_serv = $request->user()->id_serv;
+          $value = count(  DB::table('mouvements', 'mouvements')
+              ->join('servs', 'servs.s_id', '=', 'mouvements.serv_id')
+              ->join('courriers', 'courriers.c_id', '=', 'mouvements.courrier_id')
+              ->join('users', 'users.id', '=', 'mouvements.user_id')
+              ->where('mouvements.serv_id',$id_serv)->get(['*', 'mouvements.created_at', 'mouvements.status', 'mouvements.ref_initial', 'mouvements.ref_propre', 'mouvements.serv_id', 'mouvements.propr', 'mouvements.transfere']));
+
+          if(isset($_GET['lines'])){
+              $lines = $_GET['lines'];
+              if($lines == 'all'){
+                  $value = count(  DB::table('mouvements', 'mouvements')
+                      ->join('servs', 'servs.s_id', '=', 'mouvements.serv_id')
+                      ->join('courriers', 'courriers.c_id', '=', 'mouvements.courrier_id')
+                      ->join('users', 'users.id', '=', 'mouvements.user_id')
+                      ->where('mouvements.serv_id',$id_serv)->get(['*', 'mouvements.created_at', 'mouvements.status', 'mouvements.ref_initial', 'mouvements.ref_propre', 'mouvements.serv_id', 'mouvements.propr', 'mouvements.transfere']));
+              }else{
+                  $value = $lines;
+              }
+          }
+
+
+
         $trans =  DB::table('mouvements', 'mouvements')
         ->join('servs', 'servs.s_id', '=', 'mouvements.serv_id')
         ->join('courriers', 'courriers.c_id', '=', 'mouvements.courrier_id')
         ->join('users', 'users.id', '=', 'mouvements.user_id')
-        ->where('mouvements.serv_id',$id_serv)->get(['*', 'mouvements.created_at', 'mouvements.status', 'mouvements.ref_initial', 'mouvements.ref_propre', 'mouvements.serv_id', 'mouvements.propr', 'mouvements.transfere']);
+        ->where('mouvements.serv_id',$id_serv)->paginate($value==0?1:$value,['*', 'mouvements.created_at', 'mouvements.status', 'mouvements.ref_initial', 'mouvements.ref_propre', 'mouvements.serv_id', 'mouvements.propr', 'mouvements.transfere']);
         return $trans;
       }
 
@@ -124,14 +145,33 @@ class MouvementController extends Controller
        public function getListTransferedDocByService(Request $request)
        {
          $id_serv = $request->user()->id_serv;
+           $value =       count(  DB::table('mouvements', 'mouvements')
+               ->leftjoin('servs', 'servs.s_id', '=', 'mouvements.serv_id')
+               ->leftjoin('dirs', 'dirs.d_id', '=', 'mouvements.id_dg')
+               ->join('courriers', 'courriers.c_id', '=', 'mouvements.courrier_id')
+               ->join('users', 'users.id', '=', 'mouvements.user_id')
+               ->where('mouvements.current_trans_id', $id_serv)->get(['*', 'mouvements.created_at', 'mouvements.status', 'mouvements.ref_initial', 'mouvements.ref_propre', 'mouvements.serv_id', 'mouvements.propr', 'mouvements.transfere']));
+           if(isset($_GET['lines'])){
+               $lines = $_GET['lines'];
+               if($lines == 'all'){
+                   $value =       count(  DB::table('mouvements', 'mouvements')
+                       ->leftjoin('servs', 'servs.s_id', '=', 'mouvements.serv_id')
+                       ->leftjoin('dirs', 'dirs.d_id', '=', 'mouvements.id_dg')
+                       ->join('courriers', 'courriers.c_id', '=', 'mouvements.courrier_id')
+                       ->join('users', 'users.id', '=', 'mouvements.user_id')
+                       ->where('mouvements.current_trans_id', $id_serv)->get(['*', 'mouvements.created_at', 'mouvements.status', 'mouvements.ref_initial', 'mouvements.ref_propre', 'mouvements.serv_id', 'mouvements.propr', 'mouvements.transfere']));
+               }else{
+                   $value = $lines;
+               }
+           }
          $trans =  DB::table('mouvements', 'mouvements')
          ->leftjoin('servs', 'servs.s_id', '=', 'mouvements.serv_id')
          ->leftjoin('dirs', 'dirs.d_id', '=', 'mouvements.id_dg')
          ->join('courriers', 'courriers.c_id', '=', 'mouvements.courrier_id')
          ->join('users', 'users.id', '=', 'mouvements.user_id')
-         ->where('mouvements.current_trans_id', $id_serv)->get(['*', 'mouvements.created_at', 'mouvements.status', 'mouvements.ref_initial', 'mouvements.ref_propre', 'mouvements.serv_id', 'mouvements.propr', 'mouvements.transfere']);
+         ->where('mouvements.current_trans_id', $id_serv)->paginate($value==0?1:$value,['*', 'mouvements.created_at', 'mouvements.status', 'mouvements.ref_initial', 'mouvements.ref_propre', 'mouvements.serv_id', 'mouvements.propr', 'mouvements.transfere']);
          return $trans;
-       }    
+       }
 
                   /**
        *  Recupere la liste de courrier transfere vers un service
@@ -141,14 +181,36 @@ class MouvementController extends Controller
 
        public function getListTransferedDocToService(Request $request)
        {
-         $id_dir = $request->user()->id_dir;
+           $id_dir = $request->user()->id_dir;
+           $value =       count(   DB::table('mouvements', 'mouvements')     ->where('mouvements.current_trans_id_dir', $id_dir)
+               ->leftjoin('servs', 'servs.s_id', '=', 'mouvements.serv_id')
+               ->leftjoin('dirs', 'dirs.d_id', '=', 'mouvements.id_dg')
+               ->join('courriers', 'courriers.c_id', '=', 'mouvements.courrier_id')
+               ->join('users', 'users.id', '=', 'mouvements.user_id')
+
+               ->get(['*', 'mouvements.created_at', 'mouvements.status', 'mouvements.ref_initial', 'mouvements.ref_propre', 'mouvements.serv_id', 'mouvements.propr', 'mouvements.transfere']));
+           if(isset($_GET['lines'])){
+               $lines = $_GET['lines'];
+               if($lines == 'all'){
+                   $value =       count(   DB::table('mouvements', 'mouvements')     ->where('mouvements.current_trans_id_dir', $id_dir)
+                       ->leftjoin('servs', 'servs.s_id', '=', 'mouvements.serv_id')
+                       ->leftjoin('dirs', 'dirs.d_id', '=', 'mouvements.id_dg')
+                       ->join('courriers', 'courriers.c_id', '=', 'mouvements.courrier_id')
+                       ->join('users', 'users.id', '=', 'mouvements.user_id')
+
+                       ->get(['*', 'mouvements.created_at', 'mouvements.status', 'mouvements.ref_initial', 'mouvements.ref_propre', 'mouvements.serv_id', 'mouvements.propr', 'mouvements.transfere']));
+               }else{
+                   $value = $lines;
+               }
+           }
+
          $trans =  DB::table('mouvements', 'mouvements')     ->where('mouvements.current_trans_id_dir', $id_dir)
          ->leftjoin('servs', 'servs.s_id', '=', 'mouvements.serv_id')
          ->leftjoin('dirs', 'dirs.d_id', '=', 'mouvements.id_dg')
          ->join('courriers', 'courriers.c_id', '=', 'mouvements.courrier_id')
          ->join('users', 'users.id', '=', 'mouvements.user_id')
 
-        ->get(['*', 'mouvements.created_at', 'mouvements.status', 'mouvements.ref_initial', 'mouvements.ref_propre', 'mouvements.serv_id', 'mouvements.propr', 'mouvements.transfere']);
+        ->paginate($value==0?1:$value,['*', 'mouvements.created_at', 'mouvements.status', 'mouvements.ref_initial', 'mouvements.ref_propre', 'mouvements.serv_id', 'mouvements.propr', 'mouvements.transfere']);
          return $trans;
        }
 
@@ -156,12 +218,31 @@ class MouvementController extends Controller
        /**recuperation de la liste de courriers transferer d'un service a l'sp */
        public function moveServiceToSp(Request $request) {
         $id_dir = $request->user()->id_dir;
+           $value =       count(   DB::table('mouvements', 'mouvements')
+               ->leftjoin('servs', 'servs.s_id', '=', 'mouvements.current_trans_id')
+               ->leftjoin('dirs', 'dirs.d_id', '=', 'mouvements.id_dg')
+               ->join('courriers', 'courriers.c_id', '=', 'mouvements.courrier_id')
+               ->join('users', 'users.id', '=', 'mouvements.user_id')
+               ->where('mouvements.id_dg', $id_dir)->get(['*', 'mouvements.created_at', 'mouvements.transfere', 'mouvements.status']));
+           if(isset($_GET['lines'])){
+               $lines = $_GET['lines'];
+               if($lines == 'all'){
+                   $value =       count(   DB::table('mouvements', 'mouvements')
+                       ->leftjoin('servs', 'servs.s_id', '=', 'mouvements.current_trans_id')
+                       ->leftjoin('dirs', 'dirs.d_id', '=', 'mouvements.id_dg')
+                       ->join('courriers', 'courriers.c_id', '=', 'mouvements.courrier_id')
+                       ->join('users', 'users.id', '=', 'mouvements.user_id')
+                       ->where('mouvements.id_dg', $id_dir)->get(['*', 'mouvements.created_at', 'mouvements.transfere', 'mouvements.status']));
+               }else{
+                   $value = $lines;
+               }
+           }
         $courriers= DB::table('mouvements', 'mouvements')
         ->leftjoin('servs', 'servs.s_id', '=', 'mouvements.current_trans_id')
         ->leftjoin('dirs', 'dirs.d_id', '=', 'mouvements.id_dg')
         ->join('courriers', 'courriers.c_id', '=', 'mouvements.courrier_id')
         ->join('users', 'users.id', '=', 'mouvements.user_id')
-        ->where('mouvements.id_dg', $id_dir)->get(['*', 'mouvements.created_at', 'mouvements.transfere', 'mouvements.status']);
+        ->where('mouvements.id_dg', $id_dir)->paginate($value==0?1:$value,['*', 'mouvements.created_at', 'mouvements.transfere', 'mouvements.status']);
         return $courriers;
        }
 

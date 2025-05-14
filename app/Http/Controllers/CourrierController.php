@@ -68,6 +68,8 @@ class CourrierController extends Controller
 
     public function fetchDocs(Request $request)
     {
+        $value =       count(  $docs = DB::table('courriers', 'courriers')
+            ->join('dirs', 'dirs.d_id', '=', 'courriers.dir_id')->orderBy('courriers.created_at', 'desc')->get(['*', 'courriers.created_at', 'courriers.status']));
         if(isset($_GET['lines'])){
             $lines = $_GET['lines'];
             if($lines == 'all'){
@@ -78,7 +80,7 @@ class CourrierController extends Controller
             }
         }
         $docs = DB::table('courriers', 'courriers')
-            ->join('dirs', 'dirs.d_id', '=', 'courriers.dir_id')->orderBy('courriers.created_at', 'desc')->paginate($value,['*', 'courriers.created_at', 'courriers.status']);
+            ->join('dirs', 'dirs.d_id', '=', 'courriers.dir_id')->orderBy('courriers.created_at', 'desc')->paginate($value==0?1:$value,['*', 'courriers.created_at', 'courriers.status']);
             // get(['*', 'courriers.created_at', 'courriers.status'])
         return $docs;
     }
@@ -90,8 +92,20 @@ class CourrierController extends Controller
     public function fetchDocsByDirection(Request $request)
     {
         $id_dir = $request->user()->id_dir;
+        $value =       count(  DB::table('courriers', 'courriers')
+            ->join('dirs', 'dirs.d_id', '=', 'courriers.dir_id')->join('users', 'users.id', '=', 'courriers.user_id')->where('courriers.dir_id', '=', $id_dir)->get(['*', 'courriers.created_at', 'courriers.status', 'courriers.transfere']));
+        if(isset($_GET['lines'])){
+            $lines = $_GET['lines'];
+            if($lines == 'all'){
+                $value =       count(  DB::table('courriers', 'courriers')
+                    ->join('dirs', 'dirs.d_id', '=', 'courriers.dir_id')->join('users', 'users.id', '=', 'courriers.user_id')->where('courriers.dir_id', '=', $id_dir)->get(['*', 'courriers.created_at', 'courriers.status', 'courriers.transfere']));
+            }else{
+                $value = $lines;
+            }
+        }
+
         $docs = DB::table('courriers', 'courriers')
-        ->join('dirs', 'dirs.d_id', '=', 'courriers.dir_id')->join('users', 'users.id', '=', 'courriers.user_id')->where('courriers.dir_id', '=', $id_dir)->get(['*', 'courriers.created_at', 'courriers.status', 'courriers.transfere']);
+        ->join('dirs', 'dirs.d_id', '=', 'courriers.dir_id')->join('users', 'users.id', '=', 'courriers.user_id')->where('courriers.dir_id', '=', $id_dir)->paginate($value==0?1:$value,['*', 'courriers.created_at', 'courriers.status', 'courriers.transfere']);
         return $docs;
     }
 
@@ -366,7 +380,7 @@ class CourrierController extends Controller
                 array_push($data, [$dir['nom_dir'], $list_doc, $got, $notGot]);
             }
         }
-   
+
 
 
 
